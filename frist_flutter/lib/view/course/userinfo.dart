@@ -3,6 +3,8 @@ import 'package:FlutterDemo/model/usermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
 
+import '../../global.dart';
+
 class UserInfoItem extends StatelessWidget {
 
   UserModel _userModel;
@@ -20,7 +22,7 @@ class UserInfoItem extends StatelessWidget {
         _userModel.avatarImageUrl == null ? "":_userModel.avatarImageUrl 
         ,width: 48,height: 48,
       )
-      .putIntoContainer(margin: EdgeInsets.only(left: 0,top: 5,bottom: 5,right:5),color: mainColor,width: 48,height: 48)
+      .putIntoContainer(margin: EdgeInsets.only(left: 0,top: 5,bottom: 5,right:5),color: GlobalTool.mainColor,width: 48,height: 48)
     )
     .addSubWight(
       Column().

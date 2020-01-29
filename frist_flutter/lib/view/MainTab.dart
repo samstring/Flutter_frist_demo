@@ -1,4 +1,5 @@
 import 'package:FlutterDemo/contanst.dart';
+import 'package:FlutterDemo/global.dart';
 import 'package:FlutterDemo/view/course/categoryhome.dart';
 import 'package:FlutterDemo/view/my/mycourse.dart';
 import 'package:FlutterDemo/view/personal/personalinfo.dart';
@@ -8,6 +9,8 @@ import 'package:FlutterDemo/view/resetpassword.dart';
 import 'package:FlutterDemo/view/sarchbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'home/search/search_page.dart';
 
 class MainTabPage extends StatefulWidget{
 
@@ -26,7 +29,10 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
 
   @override
   void initState() {
-    pages..add(HomePage())..add(CategoryPageHome())..add(MyCoursePage())..add(PersonalInfoPage());
+    pages..add(HomePage())..add(SearchViewPage(
+      hotSearchWordList: ["3,"],hotSearchTitle: "热门啦",hitoryRecordCount: 3,
+      cancelTitle: "cancel",
+      ))..add(MyCoursePage())..add(PersonalInfoPage());
     super.initState();
   }
 
@@ -34,14 +40,15 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
   Widget build(BuildContext context) {
     // TODO: implement build
     Widget searchBar;
-    if(currentIndex == 0){
-      searchBar = new AppBar(
-//      centerTitle: true,
-      backgroundColor: Colors.white,
-      title: TextFileWidget(),
-      automaticallyImplyLeading: false,);
+//     if(currentIndex == 0){
+//       searchBar = new AppBar(
+// //      centerTitle: true,
+//       backgroundColor: Colors.white,
+//       title: TextFileWidget(),
+//       automaticallyImplyLeading: false,);
 
-    }else if(currentIndex == 3){
+//     }else
+     if(currentIndex == 3){
       searchBar = null;
     }
     else{
@@ -55,7 +62,7 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
       body: pages[currentIndex],
       bottomNavigationBar: CupertinoTabBar(
         currentIndex:currentIndex,
-        activeColor: mainColor,
+        activeColor: GlobalTool.mainColor,
         inactiveColor: Colors.black,
         onTap: _onItemSelect,
         items:<BottomNavigationBarItem>[

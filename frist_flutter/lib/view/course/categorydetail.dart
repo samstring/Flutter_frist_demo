@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:FlutterDemo/contanst.dart';
+import 'package:FlutterDemo/global.dart';
 import 'package:FlutterDemo/model/course/coursecategorymodel.dart';
 import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:FlutterDemo/view/course/coursedetail.dart';
@@ -157,7 +158,7 @@ CourseListItemView(CourseModel itemModel){
     Row contentView =Row().addSubWight(
       Image.network(
         _itemModel.imageUrl == null ? "":_itemModel.imageUrl,
-      ).putIntoContainer(width: 100,height: 60,color: mainColor,margin: EdgeInsets.only(left: 10,top: 10,right: 10))
+      ).putIntoContainer(width: 100,height: 60,color: GlobalTool.mainColor,margin: EdgeInsets.only(left: 10,top: 10,right: 10))
     ).addSubWight(
       Column(crossAxisAlignment: CrossAxisAlignment.start,).addSubWight(Text(_itemModel.courseTitle == null ? "":_itemModel.courseTitle))
       .addSubWight(

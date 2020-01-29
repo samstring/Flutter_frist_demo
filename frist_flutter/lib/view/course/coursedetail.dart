@@ -10,6 +10,8 @@ import 'package:FlutterDemo/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
 
+import '../../global.dart';
+
 class CourseDetailPage extends StatefulWidget{
 
 
@@ -156,7 +158,7 @@ class _CourseDetailPage extends State<CourseDetailPage> with TickerProviderState
       .addSubWight(
         Flex(direction: Axis.horizontal,)
         .addSubWight(FlatButton.icon(
-          color: mainColor,
+          color: GlobalTool.mainColor,
           icon: Icon(Icons.chat),
           textColor: Colors.white,
           label: Text("咨询"),

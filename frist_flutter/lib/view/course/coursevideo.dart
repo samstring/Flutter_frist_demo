@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:FlutterDemo/contanst.dart';
+import 'package:FlutterDemo/global.dart';
 import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,7 @@ playerWidget.putIntoContainer(width: double.infinity,height: 200)
     ,flex: 1)
     .addSubWight(
       FlatButton.icon(
-          color: mainColor,
+          color: GlobalTool.mainColor,
           icon: Icon(Icons.chat),
           textColor: Colors.white,
           label: Text("咨询老师"),
