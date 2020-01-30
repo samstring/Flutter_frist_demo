@@ -5,7 +5,7 @@ import 'package:FlutterDemo/view/course/coursedetail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 
 class HomePage extends StatelessWidget{
   @override

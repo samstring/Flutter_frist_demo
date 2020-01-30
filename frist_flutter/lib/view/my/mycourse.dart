@@ -2,7 +2,7 @@ import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:FlutterDemo/view/course/categorydetail.dart';
 import 'package:FlutterDemo/view/course/coursedetail.dart';
 import 'package:flutter/material.dart';
-import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 class MyCoursePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {

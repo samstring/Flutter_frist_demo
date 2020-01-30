@@ -1,7 +1,7 @@
 import 'package:FlutterDemo/contanst.dart';
 import 'package:FlutterDemo/model/usermodel.dart';
 import 'package:flutter/material.dart';
-import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 
 import '../../global.dart';
 

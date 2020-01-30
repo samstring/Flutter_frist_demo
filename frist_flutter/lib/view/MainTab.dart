@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:FlutterDemo/contanst.dart';
 import 'package:FlutterDemo/global.dart';
 import 'package:FlutterDemo/view/course/categoryhome.dart';
@@ -10,7 +12,8 @@ import 'package:FlutterDemo/view/sarchbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'home/search/search_page.dart';
+import 'package:search_pageview/search_page.dart';
+
 
 class MainTabPage extends StatefulWidget{
 
@@ -30,8 +33,13 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
   @override
   void initState() {
     pages..add(HomePage())..add(SearchViewPage(
-      hotSearchWordList: ["3,"],hotSearchTitle: "热门啦",hitoryRecordCount: 3,
-      cancelTitle: "cancel",
+      hotSearchWordList: ["3,"],hotSearchTitle: "热门啦",hitoryRecordCount: 10,
+      cancelTitle: "cancel",clickSearchBlock: ((BuildContext context,String text){
+        log(text);
+      }),
+      clickCancelBlock: (BuildContext context){
+        log("取消");
+      },
       ))..add(MyCoursePage())..add(PersonalInfoPage());
     super.initState();
   }

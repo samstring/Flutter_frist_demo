@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:FlutterDemo/model/user_common_provider.dart';
 import 'user_common_view.dart';
-import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 import 'dart:convert' as convert;
 
 

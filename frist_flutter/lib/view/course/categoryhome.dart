@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:FlutterDemo/model/course/coursecategorymodel.dart';
 import 'package:FlutterDemo/view/course/categorypage.dart';
 import 'package:flutter/material.dart';
-import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 
 class CategoryPageHome extends StatelessWidget {
 

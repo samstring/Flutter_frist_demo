@@ -8,7 +8,7 @@ import 'package:FlutterDemo/view/course/coursevideo.dart';
 import 'package:FlutterDemo/view/course/userinfo.dart';
 import 'package:FlutterDemo/view/login.dart';
 import 'package:flutter/material.dart';
-import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 
 import '../../global.dart';
 

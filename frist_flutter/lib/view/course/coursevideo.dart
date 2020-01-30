@@ -6,7 +6,7 @@ import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:FlutterDemo/tool/sfviewtool/lib/sfviewtool.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 
 import 'coursedetail.dart';
 
