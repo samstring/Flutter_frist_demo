@@ -1,4 +1,6 @@
-class UserModel {
+import 'package:FlutterDemo/model/course/basemodel.dart';
+
+class UserModel extends BaseModel {
   String userId;
   String userName;
   String userDesc;

@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:search_pageview/search_page.dart';
+import 'package:FlutterDemo/tool/categaory_view/lib/category_view_example.dart';
 
 
 class MainTabPage extends StatefulWidget{
@@ -32,15 +33,8 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
 
   @override
   void initState() {
-    pages..add(HomePage())..add(SearchViewPage(
-      hotSearchWordList: ["3,"],hotSearchTitle: "热门啦",hitoryRecordCount: 10,
-      cancelTitle: "cancel",clickSearchBlock: ((BuildContext context,String text){
-        log(text);
-      }),
-      clickCancelBlock: (BuildContext context){
-        log("取消");
-      },
-      ))..add(MyCoursePage())..add(PersonalInfoPage());
+    log("调用");
+    pages..add(HomePage())..add(CategoryPageHome())..add(MyCoursePage())..add(PersonalInfoPage());
     super.initState();
   }
 
@@ -48,14 +42,14 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
   Widget build(BuildContext context) {
     // TODO: implement build
     Widget searchBar;
-//     if(currentIndex == 0){
-//       searchBar = new AppBar(
-// //      centerTitle: true,
-//       backgroundColor: Colors.white,
-//       title: TextFileWidget(),
-//       automaticallyImplyLeading: false,);
+    if(currentIndex == 0){
+      searchBar = new AppBar(
+//      centerTitle: true,
+      backgroundColor: Colors.white,
+      title: TextFileWidget(),
+      automaticallyImplyLeading: false,);
 
-//     }else
+    }else
      if(currentIndex == 3){
       searchBar = null;
     }
@@ -67,7 +61,10 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
 
     return Scaffold(
       appBar: searchBar,
-      body: pages[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: pages,
+      ),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex:currentIndex,
         activeColor: GlobalTool.mainColor,
@@ -93,3 +90,5 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
   
 
 }
+
+

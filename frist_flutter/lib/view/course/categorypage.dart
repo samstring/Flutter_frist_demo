@@ -154,6 +154,7 @@ class CategoryRight extends StatelessWidget {
 
       for (var t = 0; t < _items[i].subItems.length; t++) {
         subItemsView = subItemsView.addSubWight(FlatButton(
+          // key: ValueKey(value)
           child: Text(_items[i].subItems[t].title),
           onPressed: () {
             //  log(_items[i].subItems[t].title);
@@ -198,6 +199,22 @@ class CategoryRight extends StatelessWidget {
     ).putIntoContainer(height: double.infinity),
     );
 
+  }
+}
+
+class HeightReporter extends StatelessWidget {
+  final Widget child;
+
+  HeightReporter({this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+      child: child,
+      onTap: () {
+        print('Height is ${context.size.height}');
+      },
+    );
   }
 }
 

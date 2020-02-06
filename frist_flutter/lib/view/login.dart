@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:FlutterDemo/contanst.dart';
+import 'package:FlutterDemo/view/my/usertool.dart';
 import 'loginprotocol.dart';
 import 'package:FlutterDemo/tool/networktool.dart';
 import 'resetpassword.dart';
@@ -264,6 +265,9 @@ class _InputUserInfo extends State<InputUserInfo> {
 
                     Provider.of<LoadingViewProvide>(context)
                         .setLoadingState(false);
+                        
+
+                        
                   };
 
                   netTool.post(
@@ -274,6 +278,8 @@ class _InputUserInfo extends State<InputUserInfo> {
                         "loginModel": "1"
                       });
                   log("点击登陆按钮");
+                  UserModel userM = UserModel(userId: "1234");
+                  UserTool.setUserInfo(userM);
   }
 }
 

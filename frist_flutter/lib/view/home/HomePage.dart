@@ -2,6 +2,7 @@ import 'package:FlutterDemo/contanst.dart';
 import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:FlutterDemo/view/course/categorydetail.dart';
 import 'package:FlutterDemo/view/course/coursedetail.dart';
+import 'package:FlutterDemo/view/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -20,7 +21,8 @@ CourseModel model = CourseModel();
           models.add(model);
 
     // TODO: implement build
-    return CustomScrollView(
+    return RefreshIndicator(
+      child:  CustomScrollView(
       // key: PageStorageKey("home"),
       slivers: <Widget>[
         SliverToBoxAdapter(
@@ -35,7 +37,28 @@ CourseModel model = CourseModel();
         ),
         getList(models),
       ],
-    ).putInfoSaveArea(top: true);
+    ).putInfoSaveArea(top: true),
+    onRefresh: (){
+      
+    },
+    );
+
+    // return CustomScrollView(
+    //   // key: PageStorageKey("home"),
+    //   slivers: <Widget>[
+    //     SliverToBoxAdapter(
+    //       child: getHeaderBanner().putIntoContainer(height: 200),
+    //     ),
+    //     SliverToBoxAdapter(
+    //       child: getCategoryView().putIntoContainer(margin: EdgeInsets.only(top: 15,bottom: 10)),
+    //     ),
+    //     SliverToBoxAdapter(
+    //       // child: getList("精选课程",models),
+    //       child: Text("精选课程",style: TextStyle(fontSize: 18),).putIntoContainer(width:double.infinity,height:30,margin: EdgeInsets.only(left: 10)),
+    //     ),
+    //     getList(models),
+    //   ],
+    // ).putInfoSaveArea(top: true);
   }
 
   Widget getHeaderBanner(){
@@ -82,11 +105,18 @@ CourseModel model = CourseModel();
       delegate:  SliverChildBuilderDelegate((BuildContext context, int index){
         return  CourseListItemView(models[0]).putIntoGeustureDetector(GestureDetector(
         onTapDown:(event){
-          // log("点击第$index");
-          Navigator.push(context, MaterialPageRoute(builder: (context){
-            return CourseDetailPage();
-          }));
-       
+          // Navigator.pushNamed(context, "coursePage");
+          
+        showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context){
+              return Container(
+                height: double.infinity,
+                child: CourseloginPage(),
+              );
+
+            }
+          );
         }));
       },
       childCount: 10
