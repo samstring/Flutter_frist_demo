@@ -107,16 +107,17 @@ CourseModel model = CourseModel();
         onTapDown:(event){
           // Navigator.pushNamed(context, "coursePage");
           
-        showModalBottomSheet(
-            context: context,
-            builder: (BuildContext context){
-              return Container(
-                height: double.infinity,
-                child: CourseloginPage(),
-              );
+        // showModalBottomSheet(
+        //     context: context,
+        //     builder: (BuildContext context){
+        //       return Container(
+        //         height: double.infinity,
+        //         child: CourseloginPage(),
+        //       );
 
-            }
-          );
+        //     }
+        //   );
+        Navigator.pushNamed(context, "coursePage");
         }));
       },
       childCount: 10

@@ -10,6 +10,7 @@ import 'package:FlutterDemo/view/MainTab.dart';
 import 'package:provider/provider.dart';
 
 import 'model/usermodel.dart';
+import 'package:sfviewtool/sfviewtool.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
     GlobalTool.initGloble().then(
@@ -87,13 +88,13 @@ class RouteManger{
     }
 
     if(settings.name == "coursePage"){
-//      if(GlobalTool.isLogin == true){
-// page = CourseDetailPage();
-//      }else{
-//        page = CourseloginPage();
-//      }
+     if(GlobalTool.isLogin == true){
+page = CourseDetailPage();
+     }else{
+       page = CourseloginPage();
+     }
 
-page = CourseloginPage();
+// page = CourseloginPage();
     }
 
     //如果找不到相应的路由，则设置为空
