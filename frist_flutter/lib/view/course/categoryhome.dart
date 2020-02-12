@@ -80,14 +80,16 @@ CategoryViewTool categoryView;
         rightItemBuilder: (BuildContext context,List itemList,int index){         
          Column content = Column(crossAxisAlignment: CrossAxisAlignment.start,);
          content = content.addSubWight(Text(itemList[index]).putIntoContainer(height:30));
-        //  content = content.addSubWight()
-
+       
         Wrap itemContent = Wrap(spacing: 10,runSpacing: 10,);
         for (var i = 0; i < rightList.length; i++) {
           // log(rightList.toString());
-         Widget item=  Column()
-         .addSubWight(Image.network("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70",fit: BoxFit.fill,width: 70,height: 70))
+          LayoutBuilder item =LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
+            return  Column()
+         .addSubWight(Image(image:AssetImage("assets/images/ITquanxian.png"),fit: BoxFit.contain,width: constraints.maxWidth/3-10,height: 70))
          .addSubWight(Center(child: Text("title"+i.toString()),).putIntoContainer(height: 30,width: 70));
+          },);
+        
           itemContent =itemContent.addSubWight(item);
         }
         content = content.addSubWight(itemContent);

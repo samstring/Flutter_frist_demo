@@ -4,11 +4,13 @@ import 'package:FlutterDemo/global.dart';
 import 'package:FlutterDemo/tool/erropage.dart';
 import 'package:FlutterDemo/view/course/coursedetail.dart';
 import 'package:FlutterDemo/view/my/usertool.dart';
+import 'package:FlutterDemo/view/personal/personal_page.dart';
+import 'package:FlutterDemo/view/personal/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterDemo/view/login.dart';
 import 'package:FlutterDemo/view/MainTab.dart';
 import 'package:provider/provider.dart';
-
+import 'info_provider.dart';
 import 'model/usermodel.dart';
 import 'package:sfviewtool/sfviewtool.dart';
 void main() {
@@ -16,13 +18,31 @@ void main() {
     GlobalTool.initGloble().then(
     (e){
       return runApp(
-    MyApp());
+
+        ChangeNotifierProvider<AppInfoProvide>.value(//1
+    notifier: AppInfoProvide(),//2
+    child: MyApp(),
+  )
+    // MyApp());
+    // MultiProvider(providers: [
+    //       ChangeNotifierProvider(builder: (_) => AppInfoProvide()),
+    //     ], child: MyApp())
+        );
     }
    );
  
+//  MultiProvider(providers: [
+//           ChangeNotifierProvider(builder: (_) => AppInfoProvide()),
+//         ], child: PageContentArea());
 }
 
+
+
 class MyApp extends StatefulWidget {
+   Color primarySwatch = Colors.green;
+   setAppPrimarySwatch(Color color){
+    
+  }
 
   @override
   State<StatefulWidget> createState() {
@@ -38,17 +58,21 @@ class _MyApp extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     {
+      AppInfoProvide infoProvider = Provider.of<AppInfoProvide>(context);
+      log("-------"+infoProvider.toString());
     return MaterialApp(
+      
       onGenerateRoute: (RouteSettings settings){
         return RouteManger.getRoute(settings);
       },
       // initialRoute: ,
       title: 'Flutter Demo',
       theme: ThemeData(
-      
-        primarySwatch: Colors.blue,
+      primarySwatch: infoProvider.primarySwatchColor,
+        // primarySwatch: Provider.of<AppInfoProvide>(context).primarySwatchColor
       ),
-      home:GlobalTool.isLogin == true ? MainTabPage():CourseloginPage()
+      // home:GlobalTool.isLogin == true ? MainTabPage():CourseloginPage()
+      home: MainTabPage(),
     );
   }
   }
@@ -88,13 +112,21 @@ class RouteManger{
     }
 
     if(settings.name == "coursePage"){
-     if(GlobalTool.isLogin == true){
+//      if(GlobalTool.isLogin == true){
+// page = CourseDetailPage();
+//      }else{
+//        page = CourseloginPage();
+//      }
 page = CourseDetailPage();
-     }else{
-       page = CourseloginPage();
-     }
 
-// page = CourseloginPage();
+    }
+
+    if(settings.name == "personalPage"){
+      page = PersonalPage();
+    }
+
+    if(settings.name == "setting_page"){
+      page = SettingPage();
     }
 
     //如果找不到相应的路由，则设置为空
@@ -102,6 +134,7 @@ page = CourseDetailPage();
       page = ErrorPage("找不到相关页面");
 
     }
+
 
     return MaterialPageRoute(builder: (BuildContext context){
       return page;

@@ -1,72 +1,167 @@
-import 'dart:developer';
 import 'dart:ui';
 
-import 'package:FlutterDemo/contanst.dart';
-// import 'package:FlutterDemo/tool/viewlayouttool.dart';
-// import 'package:FlutterDemo/tool/viewgusturetool.dart';
-// import 'package:FlutterDemo/tool/viewcontainertool.dart';
+import 'package:FlutterDemo/view/my/usertool.dart';
 import 'package:sfviewtool/sfviewtool.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import '';
 
 class PersonalInfoPage extends StatelessWidget {
-   List<String> settingTitles = ["个人主页","设置","收藏","退出登陆"];
+  List<String> settingTitles = ["个人主页", "设置", "收藏", "退出登陆"];
   @override
   Widget build(BuildContext context) {
- 
     // content.putIntoGeustureDetector(listener);
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          PersonalInfo(),
-          ItemView(settingTitles[0], isShowBottomLine:true,isShowLeftIcon: true,leftIcon: Icon(Icons.person,size: 25,)),
-          ItemView(settingTitles[1], isShowBottomLine:true,isShowLeftIcon: true,leftIcon: Icon(Icons.settings,size: 25,)),
-          ItemView(settingTitles[2], isShowBottomLine:true,isShowLeftIcon: true,leftIcon: Icon(Icons.favorite,size: 25,)),
-           ItemView(settingTitles[3], isShowBottomLine:true,isShowLeftIcon: true,isShowRigIcon: false,leftIcon: Icon(Icons.exit_to_app,size: 25,),).putIntoGeustureDetector(GestureDetector(
-      onTapDown: ( event){  
-        showDeleteConfirmDialog1(context);
-      })),
-        ],
-      ),
+    return Scaffold(
+      body: CustomScrollView(
+      slivers: <Widget>[
+        SliverToBoxAdapter(
+          // child: Stack().addSubWight(PersonalInfo(),top: 0,left: 0,right: 0)
+          // .addSubWight(getSettingList(context),top: 280,left: 0,right: 0).putIntoContainer(height: 700)
+          child: PersonalInfo().putIntoContainer(height: 300),
+        ),
+         SliverToBoxAdapter(
+          // child: Stack().addSubWight(PersonalInfo(),top: 0,left: 0,right: 0)
+          // .addSubWight(getSettingList(context),top: 280,left: 0,right: 0).putIntoContainer(height: 700)
+          child: Card(child: getSettingList(context),)
+        )
+        
+      ],
+    ),
     );
+ 
+  }
+
+  Widget getSettingList(BuildContext context){
+    return MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: ListView.builder(
+            
+            itemCount: 4,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              switch (index) {
+                case 0:
+                  return ItemView(settingTitles[0],
+                      isShowBottomLine: true,
+                      isShowLeftIcon: true,
+                      leftIcon: Icon(
+                        Icons.person,
+                        size: 24,
+                      )).putIntoGeustureDetector(GestureDetector(onTapDown: (event) {
+                   Navigator.pushNamed(context, "personalPage");
+                  }));
+                case 1:
+                  return ItemView(settingTitles[1],
+                      isShowBottomLine: true,
+                      isShowLeftIcon: true,
+                      leftIcon: Icon(
+                        Icons.settings,
+                        size: 24,
+                      )).putIntoGeustureDetector(GestureDetector(onTapDown: (event) {
+                   Navigator.pushNamed(context, "setting_page");
+                  }));
+                case 2:
+                  return ItemView(settingTitles[2],
+                      isShowBottomLine: true,
+                      isShowLeftIcon: true,
+                      leftIcon: Icon(
+                        Icons.favorite,
+                        size: 24,
+                      ));
+                case 3:
+                  return ItemView(
+                    settingTitles[3],
+                    isShowBottomLine: false,
+                    isShowLeftIcon: true,
+                    isShowRigIcon: false,
+                    leftIcon: Icon(
+                      Icons.exit_to_app,
+                      size: 24,
+                    ),
+                  ).putIntoGeustureDetector(GestureDetector(onTapDown: (event) {
+                    showDeleteConfirmDialog1(context);
+                  }));
+                  break;
+              }
+            },
+          ),
+          );
   }
 
   Future<bool> showDeleteConfirmDialog1(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text("退出登陆?"),
-        content: Text("退出登陆后无法收到课程更新喔"),
-        actions: <Widget>[
-          FlatButton(
-            child: Text("取消"),
-            onPressed: () => Navigator.of(context).pop(), // 关闭对话框
-          ),
-          FlatButton(
-            child: Text("退出",style: TextStyle(color: Colors.red),),
-            onPressed: () {
-              //关闭对话框并返回true
-              Navigator.of(context).pop(true);
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("退出登陆?"),
+          content: Text("退出登陆后无法收到课程更新喔"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("取消"),
+              onPressed: () => Navigator.of(context).pop(), // 关闭对话框
+            ),
+            FlatButton(
+              child: Text(
+                "退出",
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: () {
+                UserTool.setUserInfo(null);
+                //关闭对话框并返回true
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class PersonalInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Image(
-          image: AssetImage("assets/images/shangcheng.png"),
-          width: 100.0,
-          height: 100.0,
-        ).putIntoContainer(width: 100,height: 100,alignment: Alignment.center).putIntoContainer(width: double.infinity,height: 300,color: Colors.black12);
+    Widget buttons = Flex(direction: Axis.horizontal,)
+    .addSubWight(FlatButton(child: Text("文章(10)",style:TextStyle(fontSize: 18,color:Colors.white)),onPressed:(){
+
+    }),flex: 1)
+    .addSubWight(Container(width:1,height: 10,color: Colors.white,))
+    .addSubWight(FlatButton(child: Text("粉丝1.2W",style:TextStyle(fontSize: 18,color:Colors.white)),onPressed:(){
+
+    }),flex: 1).putIntoContainer(height: 60);
+
+    return Stack()
+        .addSubWight(
+            Image(
+              image: AssetImage("assets/images/user_background1.jpg"),
+              fit: BoxFit.fill,
+            ),
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0)
+        .addSubWight(
+          Image(
+            image: AssetImage("assets/images/ITquanxian.png"),
+            // fit: BoxFit.,
+            width: 100,
+            height: 100,
+          ).putIntoContainer(
+              width: 80,
+              height: 80,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.white)),
+          left: 20,
+          top: 70,
+        )
+        .addSubWight(Text("姓名",style:TextStyle(fontSize: 28,color:Colors.white)),top:70,left:120)
+        .addSubWight(Text("一句话介绍你自己",style:TextStyle(fontSize: 20,color:Colors.white)),top:110,left:120)
+        .addSubWight(buttons,left: 0,right: 0,bottom: 0)
+        .putIntoContainer(
+            height: 300, width: double.infinity, color: Colors.grey);
+
   }
 }
 
@@ -78,11 +173,16 @@ class ItemView extends StatelessWidget {
   Icon _leftIcon;
   Icon _rightIcon;
 
-  ItemView(String title, {bool isShowBottomLine,bool isShowLeftIcon,bool isShowRigIcon,Icon leftIcon,Icon rightIcon}) {
+  ItemView(String title,
+      {bool isShowBottomLine,
+      bool isShowLeftIcon,
+      bool isShowRigIcon,
+      Icon leftIcon,
+      Icon rightIcon}) {
     _title = title;
-    _isShowBottomLine = isShowBottomLine != null ? isShowBottomLine:true ;
-    _isShowLeftIcon1 = isShowLeftIcon != null ? isShowLeftIcon:true ;
-    _isShowRigIcon = isShowRigIcon != null ? isShowRigIcon:true ;
+    _isShowBottomLine = isShowBottomLine != null ? isShowBottomLine : true;
+    _isShowLeftIcon1 = isShowLeftIcon != null ? isShowLeftIcon : true;
+    _isShowRigIcon = isShowRigIcon != null ? isShowRigIcon : true;
     _leftIcon = leftIcon;
     _rightIcon = rightIcon;
   }
@@ -92,31 +192,36 @@ class ItemView extends StatelessWidget {
     Widget line = Container(
       width: double.infinity,
       height: 1,
-      color: Colors.black26,
+      color: Colors.black12,
+      margin: EdgeInsets.only(left: 10,right: 15),
     );
-    Stack stack = Stack().addSubWight(Text(_title), left: 40,top: 10);
+    Stack stack = Stack().addSubWight(Text(_title), left: 40, top: 24);
 
-   if(_isShowLeftIcon1 !=null && _isShowLeftIcon1 && _leftIcon != null){
-    stack =  stack.addSubWight(_leftIcon,left: 10,top: 10);
+    if (_isShowLeftIcon1 != null && _isShowLeftIcon1 && _leftIcon != null) {
+      stack = stack.addSubWight(_leftIcon, left: 10, top: 23);
     }
-    if(_isShowRigIcon !=null && _isShowRigIcon){
-      if(_rightIcon != null){
-        stack =  stack.addSubWight(_rightIcon,right: 10,top: 10);
-      }else{
-        stack =  stack.addSubWight(Icon(Icons.arrow_right,size: 20,),right: 10,top: 10);
+    if (_isShowRigIcon != null && _isShowRigIcon) {
+      if (_rightIcon != null) {
+        stack = stack.addSubWight(_rightIcon, right: 10, top: 10);
+      } else {
+        stack = stack.addSubWight(
+            Icon(
+              Icons.arrow_right,
+              size: 24,
+            ),
+            right: 10,
+            top: 23);
       }
-     
     }
 
+    Widget content = stack.putIntoContainer(
+        width: double.infinity, height: 70, color: Colors.white);
 
-    Widget content =  stack.putIntoContainer(width: double.infinity, height: 40,color: Colors.white);    
- 
-    if(!_isShowBottomLine){
+    if (!_isShowBottomLine) {
       return content;
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
     ).addSubWight(content).addSubWight(line);
   }
-  
 }

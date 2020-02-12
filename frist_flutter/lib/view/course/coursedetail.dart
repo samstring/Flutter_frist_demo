@@ -121,18 +121,33 @@ class _CourseDetailPage extends State<CourseDetailPage>
 
     //  _tabPages = ;
     _tabTitles = [
-      Tab(child: Text("介绍")),
-      Tab(child: Text("目录")),
+      // Container(child: Text("介绍",style: TextStyle(color: Colors.black,backgroundColor: Colors.white),),color: Colors.red,width: 100,),
+      Tab(
+          child: Text(
+        "介绍",
+        style: TextStyle(color: Colors.black),
+      )),
+      Tab(
+          child: Text(
+        "目录",
+        style: TextStyle(color: Colors.black),
+      )),
       //  Tab(child: Text("评论"))
     ];
 
     List<Widget> actions = [
       IconButton(
-        icon: Icon(Icons.favorite),
+        icon: Icon(
+          Icons.favorite,
+          color: Colors.grey,
+        ),
         onPressed: () {},
       ),
       IconButton(
-        icon: Icon(Icons.share),
+        icon: Icon(
+          Icons.share,
+          color: Colors.grey,
+        ),
         onPressed: () {},
       ),
     ];
@@ -157,7 +172,22 @@ class _CourseDetailPage extends State<CourseDetailPage>
                               NestedScrollView.sliverOverlapAbsorberHandleFor(
                                   context),
                           child: SliverAppBar(
-                            // title: Text("你好"),
+                            leading: IconButton(
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            backgroundColor: Colors.white,
+                            
+                            centerTitle: true,
+                            title: Text(
+                              "课程详情",
+                              style: TextStyle(color: Colors.grey),
+                            ),
                             expandedHeight: 240,
                             pinned: true,
                             actions: actions,
@@ -170,7 +200,8 @@ class _CourseDetailPage extends State<CourseDetailPage>
                             bottom: TabBar(
                               labelColor: Colors.white,
                               labelStyle: TextStyle(fontSize: 22),
-                              unselectedLabelStyle: TextStyle(fontSize: 16,color: Colors.white),
+                              unselectedLabelStyle:
+                                  TextStyle(fontSize: 16, color: Colors.white),
                               unselectedLabelColor: Colors.white,
                               tabs: _tabTitles,
                               controller: _tabController,
@@ -182,7 +213,6 @@ class _CourseDetailPage extends State<CourseDetailPage>
                         controller: _tabController,
                         children: _tabPages,
                       ),
-                      
                     ).putIntoContainer(),
                     bottom: 44,
                     top: 0,
@@ -260,7 +290,6 @@ class CourseIntroducePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return CustomScrollView(
       key: PageStorageKey("class_Indtroduce"),
       slivers: <Widget>[
@@ -301,7 +330,6 @@ class CourseIntroducePage extends StatelessWidget {
         )
       ],
     );
-    
   }
 
   Column getSection(String title, Widget widget) {
@@ -315,9 +343,7 @@ class CourseIntroducePage extends StatelessWidget {
   }
 
   Column getIntroduce(CourseModel courseModel) {
-    Column descView = Column(
-      
-    ).addSubWight(Text(
+    Column descView = Column().addSubWight(Text(
       courseModel.courseDesc == null ? "" : courseModel.courseDesc,
       style: TextStyle(fontSize: 18),
     ).putIntoContainer(width: double.infinity));
@@ -350,10 +376,10 @@ class CourseConetentPage extends StatefulWidget {
   }
 }
 
-class _CourseConetentPage extends State<CourseConetentPage> with AutomaticKeepAliveClientMixin{
+class _CourseConetentPage extends State<CourseConetentPage>
+    with AutomaticKeepAliveClientMixin {
   List<CourseContentModel> _itemModels;
   List<Item> _data;
-
 
   _CourseConetentPage(List<CourseContentModel> itemModels) {
     _itemModels = itemModels;

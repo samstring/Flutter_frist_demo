@@ -42,7 +42,7 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
   Widget build(BuildContext context) {
     // TODO: implement build
     Widget searchBar;
-    if(currentIndex == 0){
+    if(currentIndex == -1){
       searchBar = new AppBar(
 //      centerTitle: true,
       backgroundColor: Colors.white,
@@ -50,7 +50,7 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
       automaticallyImplyLeading: false,);
 
     }else
-     if(currentIndex == 3){
+     if(currentIndex == 3 || currentIndex == 0){
       searchBar = null;
     }
     else{

@@ -10,7 +10,8 @@ class GlobalTool {
   static Future<GlobalTool> initGloble() async{
 GlobalTool globalTool =  GlobalTool();
 final SharedPreferences prefs = await _prefs;
-    if (prefs.get("userId") == null || prefs.get("userId") == false || prefs.getString("userId").isEmpty){
+print(prefs.get("userId"));
+    if (prefs.get("userId") == null || prefs.get("userId") == false || prefs.getString("userId").isEmpty || prefs.get("userId").toString().endsWith("")){
       isLogin = false;
     }else{
       isLogin = true;

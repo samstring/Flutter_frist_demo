@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:FlutterDemo/contanst.dart';
 import 'package:FlutterDemo/view/my/usertool.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'loginprotocol.dart';
 import 'package:FlutterDemo/tool/networktool.dart';
 import 'resetpassword.dart';
@@ -13,14 +15,12 @@ import 'user_common_view.dart';
 import 'package:sfviewtool/sfviewtool.dart';
 import 'dart:convert' as convert;
 
-
 class CourseloginPage extends StatelessWidget {
   CourseloginPage();
 
   Widget build(BuildContext context) {
     return new Scaffold(
         resizeToAvoidBottomPadding: false,
-        appBar: new AppBar(title: new Text("登陆")),
         body: MultiProvider(providers: [
           ChangeNotifierProvider(builder: (_) => LoadingViewProvide()),
           ChangeNotifierProvider(builder: (_) => LoginInfoProvide()),
@@ -32,7 +32,6 @@ class CourseloginPage extends StatelessWidget {
 class PageContentArea extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _PageContentArea();
   }
 }
@@ -40,58 +39,29 @@ class PageContentArea extends StatefulWidget {
 class _PageContentArea extends State<PageContentArea> {
   @override
   Widget build(BuildContext context) {
-    
-    // return Flex(direction: Axis.horizontal)
-    // .addSubWight(
-    //   Stack(alignment:AlignmentDirectional.center).addSubWight(
-    //   Container(
-    //                   child: ((Provider.of<LoadingViewProvide>(context)
-    //                           .isShowLoading)
-    //                       ? CircularProgressIndicator()
-    //                       : null),
-    //                 )
-                 
-    //   ).addSubWight(InputUserInfo()).addSubWight(AboutText(),bottom: 30)
-    // ).putIntoContainer(color: Colors.white).putIntoGeustureDetector(
-    //   GestureDetector(
-    //   onTap: () {
-    //     FocusScope.of(context).requestFocus(FocusNode());
-    //   })
-    // );
+    Stack content = Stack()
+        .addSubWight(Container(
+          child: ((Provider.of<LoadingViewProvide>(context).isShowLoading)
+              ? CircularProgressIndicator()
+              : null),
+        ))
+        .addSubWight(
+            Image(
+              fit: BoxFit.fill,
+              image: AssetImage("assets/images/user_background3.jpg"),
+            ),
+            bottom: 80,
+            top: 0,
+            left: 0,
+            right: 0)
+        .addSubWight(InputUserInfo(), bottom: 80)
+        .addSubWight(AboutText(), bottom: 0, left: 0, right: 0);
 
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-      },
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Container(
-                color: Colors.white,
-                // color: Color.fromRGBO(233, 134, 233, 1),
-
-                child: Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: <Widget>[
-                    Container(
-                      child: ((Provider.of<LoadingViewProvide>(context)
-                              .isShowLoading)
-                          ? CircularProgressIndicator()
-                          : null),
-                    ),
-                    InputUserInfo(),
-                    Positioned(
-                      bottom: 30,
-                      child: AboutText(),
-                    )
-                  ],
-                )),
-          )
-        ],
-      ),
-    );
+    return content
+        // .putInfoSaveArea(top: false)
+        .putIntoGeustureDetector(GestureDetector(onTap: () {
+      FocusScope.of(context).requestFocus(FocusNode());
+    }));
   }
 }
 
@@ -108,178 +78,147 @@ class _InputUserInfo extends State<InputUserInfo> {
   int loginMode = 0; //登陆模式 1 手机短信登陆 2登陆密码登陆
   InputUserText inputUserText;
 
-
   @override
   Widget build(BuildContext context) {
-     return Column()
-    .addSubWight(Image(
-          image: AssetImage("assets/images/shangcheng.png"),
-          width: 100.0,
-          height: 100.0,
-        ))
-    .addSubWight(InputUserText(loginMode))
-    .addSubWight(
-      FlatButton(
-                // minWidth: double.infinity,
-                color: Colors.blue,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "登陆",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: () {
-                  clickLoginButton(context,this.inputUserText);
-                },
-              ).putIntoContainer(padding:EdgeInsets.only(left: 20, right: 20, top: 10),height: 60,width: double.infinity ))
-      .addSubWight(
-      Stack().addSubWight(FlatButton(
-                    child: Text("忘记密码"),
+    return Column()
+        .addSubWight(
+            //   Image(
+            //   image: AssetImage("assets/images/shangcheng.png"),
+            //   width: 40.0,
+            //   height: 20.0,
+
+            // )
+            Column()
+                .addSubWight(Image(
+                  image: AssetImage("assets/images/ITquanxian.png"),
+                  width: 60.0,
+                  height: 60.0,
+                ))
+                .addSubWight(Text(
+                  "尚科科技",
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                ))
+                .addSubWight(Text(
+                  "真诚为你服务",
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ))
+                .putIntoContainer(margin: EdgeInsets.only(top: 90, bottom: 70)))
+        .addSubWight(InputUserText(loginMode))
+        .addSubWight(FlatButton(
+          color: Color.fromRGBO(107, 179, 55, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          child: Text(
+            "登陆",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () {
+            clickLoginButton(context, this.inputUserText);
+          },
+        ).putIntoContainer(
+            margin: EdgeInsets.only(top: 25),
+            padding: EdgeInsets.only(left: 40, right: 40),
+            height: 45,
+            width: double.infinity))
+        .addSubWight(Stack()
+            .addSubWight(
+                FlatButton(
+                    child: Text(
+                      "忘记密码",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return ResetPassword();
                       }));
-                    }),left: 10)
-                .addSubWight(FlatButton(
-                    child: loginMode == 0 ? Text("账号密码登陆") : Text("手机号登陆"),
-                    onPressed: () {
-                      if (loginMode == 0) {
-                        loginMode = 1;
-                      } else {
-                        loginMode = 0;
-                      }
-                      setState(() {});
-                    },
-                  ),right: 10).putIntoContainer(height: 50)
-      );
-
-    // inputUserText = InputUserText(loginMode);
-    // Column inputArea = Column(
-    //   children: <Widget>[
-    //     // Text("输入框"),
-    //     Image(
-    //       image: AssetImage("assets/images/shangcheng.png"),
-    //       width: 100.0,
-    //       height: 100.0,
-    //     ),
-    //     inputUserText,
-    
-
-    //     FlatButton(
-    //             // minWidth: double.infinity,
-    //             color: Colors.blue,
-    //             shape: RoundedRectangleBorder(
-    //                 borderRadius: BorderRadius.circular(10)),
-    //             child: Text(
-    //               "登陆",
-    //               style: TextStyle(
-    //                 color: Colors.white,
-    //               ),
-    //             ),
-    //             onPressed: () {
-    //               clickLoginButton(context,this.inputUserText);
-    //             },
-    //           ).putIntoContainer(padding:EdgeInsets.only(left: 20, right: 20, top: 10),height: 60,width: double.infinity ),
-    //     Stack().addSubWight(FlatButton(
-    //                 child: Text("忘记密码"),
-    //                 onPressed: () {
-    //                   Navigator.push(context,
-    //                       MaterialPageRoute(builder: (context) {
-    //                     return ResetPassword();
-    //                   }));
-    //                 }),left: 10)
-    //             .addSubWight(FlatButton(
-    //                 child: loginMode == 0 ? Text("账号密码登陆") : Text("手机号登陆"),
-    //                 onPressed: () {
-    //                   if (loginMode == 0) {
-    //                     loginMode = 1;
-    //                   } else {
-    //                     loginMode = 0;
-    //                   }
-    //                   setState(() {});
-    //                 },
-    //               ),right: 10).putIntoContainer(height: 50),
-    //   ],
-    // );
-
-   
+                    }),
+                left: 40)
+            .addSubWight(
+                FlatButton(
+                  child: loginMode == 0
+                      ? Text("账号密码登陆", style: TextStyle(color: Colors.white))
+                      : Text("手机号登陆", style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    if (loginMode == 0) {
+                      loginMode = 1;
+                    } else {
+                      loginMode = 0;
+                    }
+                    setState(() {});
+                  },
+                ),
+                right: 40)
+            .putIntoContainer(height: 50))
+        .putIntoContainer(color: Colors.transparent);
   }
 
-
-  void clickLoginButton(BuildContext context,InputUserText inputUserText){
+  void clickLoginButton(BuildContext context, InputUserText inputUserText) {
     FocusScope.of(context).requestFocus(FocusNode());
-                  ScaffoldState _state = context.ancestorStateOfType(TypeMatcher<ScaffoldState>());
-                      
-                      UserModel user = Provider.of<LoginInfoProvide>(context).user;
-                      log( (user.phone == null).toString());
-                      String phone = user.phone;
-                      String password = user.password;
+    ScaffoldState _state =
+        context.ancestorStateOfType(TypeMatcher<ScaffoldState>());
 
-                  // log((password).toString());
+    UserModel user = Provider.of<LoginInfoProvide>(context).user;
+    log((user.phone == null).toString());
+    String phone = user.phone;
+    String password = user.password;
 
-                  if (phone == null || phone.isEmpty) {
-                    _state.showSnackBar(SnackBar(
-                      content: Text("手机号不能为空"),
-                    ));
-                    return;
-                  }
-                  if (password == null || password.isEmpty) {
-                    if (inputUserText._loginMode == 0) {
-                      _state.showSnackBar(SnackBar(
-                        content: Text("验证码不能为空"),
-                      ));
-                      return;
-                    } else {
-                      _state.showSnackBar(SnackBar(
-                        content: Text("密码不能为空"),
-                      ));
-                      return;
-                    }
-                  }
+    // log((password).toString());
 
-                  Provider.of<LoadingViewProvide>(context)
-                      .setLoadingState(true);
+    if (phone == null || phone.isEmpty) {
+      _state.showSnackBar(SnackBar(
+        content: Text("手机号不能为空"),
+      ));
+      return;
+    }
+    if (password == null || password.isEmpty) {
+      if (inputUserText._loginMode == 0) {
+        _state.showSnackBar(SnackBar(
+          content: Text("验证码不能为空"),
+        ));
+        return;
+      } else {
+        _state.showSnackBar(SnackBar(
+          content: Text("密码不能为空"),
+        ));
+        return;
+      }
+    }
 
-                  NetWorkTool netTool = NetWorkTool();
-                  netTool.netWorkCallback =
-                      (Response response, Exception exception) {
-                    // log(response.toString());
-                    if (exception == null) {
-                      String responeString = response.toString();
-                      Map map = convert.jsonDecode(responeString);
+    Provider.of<LoadingViewProvide>(context).setLoadingState(true);
 
-                      UserModel userModel = UserModel.fromJson(map["result"]);
+    NetWorkTool netTool = NetWorkTool();
+    netTool.netWorkCallback = (Response response, Exception exception) {
+      // log(response.toString());
+      if (exception == null) {
+        String responeString = response.toString();
+        Map map = convert.jsonDecode(responeString);
 
-                      log(userModel.phone);
-                    } else {
-                      //调用ScaffoldState的showSnackBar来弹出SnackBar
-                      _state.showSnackBar(
-                        SnackBar(
-                          content: Text(exception.toString()),
-                        ),
-                      );
-                    }
+        UserModel userModel = UserModel.fromJson(map["result"]);
 
-                    Provider.of<LoadingViewProvide>(context)
-                        .setLoadingState(false);
-                        
+        log(userModel.phone);
+      } else {
+        //调用ScaffoldState的showSnackBar来弹出SnackBar
+        _state.showSnackBar(
+          SnackBar(
+            content: Text(exception.toString()),
+          ),
+        );
+      }
 
-                        
-                  };
+      Provider.of<LoadingViewProvide>(context).setLoadingState(false);
+    };
 
-                  netTool.post(
-                      login_url,
-                      {
-                        "user.phoneNumber": phone,
-                        "user.password": password,
-                        "loginModel": "1"
-                      });
-                  log("点击登陆按钮");
-                  UserModel userM = UserModel(userId: "1234");
-                  UserTool.setUserInfo(userM);
+    netTool.post(login_url, {
+      "user.phoneNumber": phone,
+      "user.password": password,
+      "loginModel": "1"
+    });
+    log("点击登陆按钮");
+    UserModel userM = UserModel(userId: "1234");
+    UserTool.setUserInfo(userM);
   }
 }
 
@@ -294,84 +233,67 @@ class InputUserText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column()
-    .addSubWight(TextField(
-            decoration: InputDecoration(
-              labelText: (_loginMode == 0 ? "手机号" : "账号"),
-              hintText: (_loginMode == 0 ? "请输入手机号" : "请输入账号"),
-            ),
-            onChanged: (String str) {
-              Provider.of<LoginInfoProvide>(context).setPhoneNumber(str);
-            },
-          ))
-    .addSubWight(
-     Container(
-            child: _loginMode == 0
-                ? CountDownArea()
-                : TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "密码",
-                      hintText: "请输入密码",
-                    ),
-                    onChanged: (String str) {
-                      Provider.of<LoginInfoProvide>(context).setPass(str);
-                    }),
-          )
-    ).putIntoContainer( padding: EdgeInsets.only(left: 20, right: 20));
-    // TODO: implement build
-    // return Padding(
-    //   padding: EdgeInsets.only(left: 20, right: 20),
-    //   child: Column(
-    //     children: <Widget>[
-    //       TextField(
-    //         decoration: InputDecoration(
-    //           labelText: (_loginMode == 0 ? "手机号" : "账号"),
-    //           hintText: (_loginMode == 0 ? "请输入手机号" : "请输入账号"),
-    //         ),
-    //         onChanged: (String str) {
-    //           Provider.of<LoginInfoProvide>(context).setPhoneNumber(str);
-    //         },
-    //       ),
-    //       Container(
-    //         child: _loginMode == 0
-    //             ? CountDownArea()
-    //             : TextField(
-    //                 obscureText: true,
-    //                 decoration: InputDecoration(
-    //                   labelText: "密码",
-    //                   hintText: "请输入密码",
-    //                 ),
-    //                 onChanged: (String str) {
-    //                   Provider.of<LoginInfoProvide>(context).setPass(str);
-    //                 }),
-    //       ),
-    //     ],
-    //   ),
-    // );
+        .addSubWight(CupertinoTextField(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          style: TextStyle(color: Colors.white),
+          placeholder: (_loginMode == 0 ? "手机号" : "账号"),
+          placeholderStyle: TextStyle(color: Colors.white),
+          decoration: BoxDecoration(),
+          onChanged: (String str) {
+            Provider.of<LoginInfoProvide>(context).setPhoneNumber(str);
+          },
+        ).putIntoContainer(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 1),
+                borderRadius: BorderRadius.circular(30)),
+            height: 40))
+        .addSubWight(Container(
+          margin: EdgeInsets.only(top: 20),
+          child: _loginMode == 0
+              ? CountDownArea().putIntoContainer(height: 40)
+              : CupertinoTextField(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      style: TextStyle(color: Colors.white),
+                      placeholder: (_loginMode == 0 ? "验证码" : "密码"),
+                      placeholderStyle: TextStyle(color: Colors.white),
+                      obscureText: true,
+                      decoration: BoxDecoration(),
+                      onChanged: (String str) {
+                        Provider.of<LoginInfoProvide>(context).setPass(str);
+                      })
+                  .putIntoContainer(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 1),
+                          borderRadius: BorderRadius.circular(30)),
+                      height: 40),
+        ))
+        .putIntoContainer(padding: EdgeInsets.only(left: 40, right: 40));
   }
 }
 
 //底部协议区域
 class AboutText extends StatelessWidget {
+  TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    // 富文本
-    return Row().addSubWight(Text("新用户点击登陆即代表已同意")).addSubWight(
-       GestureDetector(
-          onTap: () {
-            log("点击文本");
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return UserProtocol("协议", "https://www.baidu.com");
-            }));
-          },
-          child: Text.rich(TextSpan(
-              text: "《flutter demo》协议",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.blue))),
-        )
-    );
-  
+    return Text.rich(TextSpan(
+      children: <TextSpan>[
+        TextSpan(text: "新用户点击登陆即代表已同意"),
+        TextSpan(
+            text: "《flutter demo》协议",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+            recognizer: tapGestureRecognizer
+              ..onTap = () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return UserProtocol("协议", "https://www.baidu.com");
+                }));
+              }),
+      ],
+    )).putIntoContainer(
+        color: Colors.white,
+        width: double.infinity,
+        height: 80,
+        alignment: Alignment.center);
   }
 }
-
