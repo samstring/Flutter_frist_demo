@@ -127,7 +127,7 @@ class CourseListPage extends StatelessWidget {
           model.courseTitle = "标题";
           model.imageUrl = "https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action/docs/imgs/3-17.png";
           model.courseDesc = "内容";
-          return CourseListItemView(model).putIntoGeustureDetector(GestureDetector(
+          return CourseListItemView(model).putIntoGestureDetector(GestureDetector(
         onTapDown:(event){
           log("点击第$index");
           Navigator.push(context, MaterialPageRoute(builder: (context){

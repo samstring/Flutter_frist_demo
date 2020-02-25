@@ -32,10 +32,10 @@ class TextFileWidget extends StatelessWidget {
     return TextField(
       onTap: (){
          FocusScope.of(context).requestFocus(FocusNode());
-        
-        Navigator.push(context, MaterialPageRoute(builder:(BuildContext context){
-          return SearchPage();
-        }));
+        Navigator.pushNamed(context, "SearchPage");
+        // Navigator.push(context, MaterialPageRoute(builder:(BuildContext context){
+        //   return SearchPage();
+        // }));
       },
       onSubmitted: (text) {
         

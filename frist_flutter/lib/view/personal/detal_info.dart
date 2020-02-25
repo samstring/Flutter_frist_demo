@@ -85,7 +85,7 @@ class _DetailInfo extends State<DetailInfo>
                             
                             
                             centerTitle: true,
-                            title:pageTitle == Container() ?"":pageTitle,
+                            title:pageTitle == Container() ? "":pageTitle,
                             expandedHeight: 300,
                             pinned: true,
                             actions: actions,

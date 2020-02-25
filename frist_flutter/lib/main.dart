@@ -2,10 +2,14 @@ import 'dart:developer';
 
 import 'package:FlutterDemo/global.dart';
 import 'package:FlutterDemo/tool/erropage.dart';
+import 'package:FlutterDemo/view/chat/chat_page.dart';
+import 'package:FlutterDemo/view/course/course_canlendar.dart';
 import 'package:FlutterDemo/view/course/coursedetail.dart';
 import 'package:FlutterDemo/view/my/usertool.dart';
 import 'package:FlutterDemo/view/personal/personal_page.dart';
+import 'package:FlutterDemo/view/personal/personal_setting_page.dart';
 import 'package:FlutterDemo/view/personal/setting_page.dart';
+import 'package:FlutterDemo/view/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterDemo/view/login.dart';
 import 'package:FlutterDemo/view/MainTab.dart';
@@ -59,7 +63,7 @@ class _MyApp extends State<MyApp>{
   Widget build(BuildContext context) {
     {
       AppInfoProvide infoProvider = Provider.of<AppInfoProvide>(context);
-      log("-------"+infoProvider.toString());
+      
     return MaterialApp(
       
       onGenerateRoute: (RouteSettings settings){
@@ -68,7 +72,7 @@ class _MyApp extends State<MyApp>{
       // initialRoute: ,
       title: 'Flutter Demo',
       theme: ThemeData(
-      primarySwatch: infoProvider.primarySwatchColor,
+      primarySwatch: infoProvider.getAppPrimarySwatch(),
         // primarySwatch: Provider.of<AppInfoProvide>(context).primarySwatchColor
       ),
       // home:GlobalTool.isLogin == true ? MainTabPage():CourseloginPage()
@@ -107,8 +111,34 @@ class RouteManger{
     );
     }
 
+    if(settings.name == "SearchPage"){
+page = SearchPage();
+      return PageRouteBuilder(
+      opaque: false,
+      pageBuilder: (BuildContext context,Animation<double> a1,Animation<double> a){
+        return  page;
+      },
+      transitionsBuilder: (___, Animation<double> animation,
+                          ____, Widget child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child:child,
+                          // child: RotationTransition(
+                          //   turns: Tween<double>(begin: 0.5, end: 1.0)
+                          //       .animate(animation),
+                          //   child: child,
+                          // ),
+                        );
+                          }        
+    );
+    }
+
     if(settings.name == "homePage"){
       page = MainTabPage();
+    }
+
+    if(settings.name == "ChatPage"){
+      page = ChatPage();
     }
 
     if(settings.name == "coursePage"){
@@ -125,8 +155,16 @@ page = CourseDetailPage();
       page = PersonalPage();
     }
 
+    if (settings.name == "CourseCalendar") {
+      page = CourseCalendar();
+    }
+
     if(settings.name == "setting_page"){
       page = SettingPage();
+    }
+
+    if(page == "PersonalInfoSetting"){
+      page = PersonalInfoSetting();
     }
 
     //如果找不到相应的路由，则设置为空
@@ -134,6 +172,8 @@ page = CourseDetailPage();
       page = ErrorPage("找不到相关页面");
 
     }
+
+    
 
 
     return MaterialPageRoute(builder: (BuildContext context){

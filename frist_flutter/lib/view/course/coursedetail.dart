@@ -453,7 +453,7 @@ class _CourseConetentPage extends State<CourseConetentPage>
                   margin: EdgeInsets.only(left: 15, right: 20),
                 ))
                 .putIntoContainer(color: Colors.white)
-                .putIntoGeustureDetector(GestureDetector(
+                .putIntoGestureDetector(GestureDetector(
               onTapDown: (event) {
                 //  String url = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
                 Navigator.push(context, MaterialPageRoute(builder: (context) {

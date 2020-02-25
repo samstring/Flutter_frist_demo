@@ -244,7 +244,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
         SliverToBoxAdapter(
             child: leftViewHeaderBuilder == null
                 ? Container()
-                : leftViewHeaderBuilder(context).putIntoGeustureDetector(GestureDetector(
+                : leftViewHeaderBuilder(context).putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
                       if (clickLeftHeader != null) {
                         clickLeftHeader(context);
@@ -261,7 +261,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
                 if (leftItemBuilder != null) {
                   bool isSelect = (selectIndex == index);
                   return leftItemBuilder(context, leftViewList, index, isSelect)
-                    .putIntoGeustureDetector(GestureDetector(
+                    .putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
 
  if(this.clickLeftItem != null){
@@ -283,7 +283,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
         SliverToBoxAdapter(
           child: leftViewBottomBuilder == null
               ? Container()
-              : leftViewBottomBuilder(context).putIntoGeustureDetector(GestureDetector(
+              : leftViewBottomBuilder(context).putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
                     if (clickLeftBottom != null) {
                       clickLeftBottom(context);
@@ -465,7 +465,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
             SliverToBoxAdapter(
               child: rightViewHeaderBuilder == null
                   ? Container()
-                  : rightViewHeaderBuilder(context).putIntoGeustureDetector(GestureDetector(
+                  : rightViewHeaderBuilder(context).putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
                         if (clickRightHeader != null) {
                           clickRightHeader(context);
@@ -488,7 +488,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
             SliverToBoxAdapter(
               child: rightViewBottomBuilder == null
                   ? Container()
-                  : rightViewBottomBuilder(context).putIntoGeustureDetector(GestureDetector(
+                  : rightViewBottomBuilder(context).putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
                         if (clickRightBottom != null) {
                           clickRightBottom(context);
@@ -519,7 +519,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
     if (rightItemHeaderBuilder != null) {
       itemView = itemView.addSubWight(
           rightItemHeaderBuilder(context, itemList, index)
-             .putIntoGeustureDetector(GestureDetector(
+             .putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
           if (clickRightItemHeader != null) {
             clickRightItemHeader(context, itemList, index);
@@ -530,7 +530,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
     //item内容
     if (rightItemBuilder != null) {
       itemView = itemView.addSubWight(
-          rightItemBuilder(context, itemList, index).putIntoGeustureDetector(GestureDetector(
+          rightItemBuilder(context, itemList, index).putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
           if (clickRightItem != null) {
             clickRightItem(context, itemList, index);
@@ -542,7 +542,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
     if (rightItemBottomBuilder != null) {
       itemView = itemView.addSubWight(
           rightItemBottomBuilder(context, itemList, index)
-            .putIntoGeustureDetector(GestureDetector(
+            .putIntoGestureDetector(GestureDetector(
                     onTapDown:(TapDownDetails details){
           if (clickRightItemBottom != null) {
             clickRightItemBottom(context, itemList, index);

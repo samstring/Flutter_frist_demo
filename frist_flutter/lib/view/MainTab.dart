@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:FlutterDemo/contanst.dart';
 import 'package:FlutterDemo/global.dart';
+import 'package:FlutterDemo/view/chat/chat_page.dart';
 import 'package:FlutterDemo/view/course/categoryhome.dart';
 import 'package:FlutterDemo/view/my/mycourse.dart';
 import 'package:FlutterDemo/view/personal/personalinfo.dart';
@@ -14,6 +15,8 @@ import 'package:flutter/material.dart';
 
 import 'package:search_pageview/search_page.dart';
 import 'package:FlutterDemo/tool/categaory_view/lib/category_view_example.dart';
+
+import '../test_layout.dart';
 
 
 class MainTabPage extends StatefulWidget{
@@ -42,15 +45,7 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
   Widget build(BuildContext context) {
     // TODO: implement build
     Widget searchBar;
-    if(currentIndex == -1){
-      searchBar = new AppBar(
-//      centerTitle: true,
-      backgroundColor: Colors.white,
-      title: TextFileWidget(),
-      automaticallyImplyLeading: false,);
-
-    }else
-     if(currentIndex == 3 || currentIndex == 0){
+     if(currentIndex != 1){
       searchBar = null;
     }
     else{
@@ -67,7 +62,7 @@ class _MainTabPage extends State<MainTabPage> with SingleTickerProviderStateMixi
       ),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex:currentIndex,
-        activeColor: GlobalTool.mainColor,
+        // activeColor: GlobalTool.mainColor,
         inactiveColor: Colors.black,
         onTap: _onItemSelect,
         items:<BottomNavigationBarItem>[

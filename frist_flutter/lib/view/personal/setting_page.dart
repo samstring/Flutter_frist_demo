@@ -61,7 +61,9 @@ class _SettingPage extends State<SettingPage> {
             Stack()
                 .addSubWight(Text("设置个人信息"), top: 24,left: 15)
                 .addSubWight(IconButton(icon:Icon(Icons.arrow_forward_ios,size: 15,)),right: 10,top: 8)
-                .putIntoContainer(height: 70,),
+                .putIntoContainer(height: 70,color: Colors.white).putIntoGestureDetector(GestureDetector(onTapDown: (event){
+                  Navigator.pushNamed(context, "PersonalInfoSetting");
+                },)),
           ],
         )).putIntoContainer(
             margin: EdgeInsets.only(left: 10, right: 10),
@@ -84,10 +86,12 @@ class _SettingPage extends State<SettingPage> {
           children: <Widget>[
             Stack()
                 .addSubWight(Text("切换主题"), top: 24,left: 15)
-                .addSubWight(IconButton(icon:Icon(Icons.arrow_forward_ios,size: 15,),onPressed: (){
-                  showChangeTheme();
-                },),right: 0,top: 11)
-                .putIntoContainer(height: 70,),
+                .addSubWight(IconButton(icon:Icon(Icons.arrow_forward_ios,size: 15,),),right: 0,top: 11)
+                .putIntoContainer(height: 70,color: Colors.white).putIntoGestureDetector(GestureDetector(
+                  onTapDown: (event){
+                    showChangeTheme();
+                  },
+                )),
             //分割线
             Container(
               height: 1,
@@ -152,18 +156,31 @@ class _SettingPage extends State<SettingPage> {
             backgroundColor: Colors.white,
           ),
           body: GridView.count(
-          crossAxisCount: 3,
+          crossAxisCount: 4,
           childAspectRatio: 1,
           crossAxisSpacing: 5,
           mainAxisSpacing: 5,
           padding: EdgeInsets.all(5),
           children: <Widget>[
             getColorsWidget(Colors.red),
-            getColorsWidget(Colors.green),
-            getColorsWidget(Colors.blue),
-            getColorsWidget(Colors.orange),
-            getColorsWidget(Colors.indigo),
+            getColorsWidget(Colors.pink),
             getColorsWidget(Colors.purple),
+            getColorsWidget(Colors.deepPurple),
+            getColorsWidget(Colors.indigo),
+            getColorsWidget(Colors.blue),
+            getColorsWidget(Colors.lightBlue),
+            getColorsWidget(Colors.cyan),
+            getColorsWidget(Colors.teal),
+            getColorsWidget(Colors.lightGreen),
+            getColorsWidget(Colors.lime),
+            getColorsWidget(Colors.yellow),
+            getColorsWidget(Colors.amber),
+
+            getColorsWidget(Colors.orange),
+            getColorsWidget(Colors.deepOrange),
+            getColorsWidget(Colors.blueGrey),
+           
+
           ],
         ),
         );
@@ -174,7 +191,7 @@ class _SettingPage extends State<SettingPage> {
   Widget getColorsWidget(Color color){
     return Container(
       color: color,
-    ).putIntoGeustureDetector(GestureDetector(
+    ).putIntoGestureDetector(GestureDetector(
       onTapDown: (event){
         Provider.of<AppInfoProvide>(context).setAppPrimarySwatch(color);
       },

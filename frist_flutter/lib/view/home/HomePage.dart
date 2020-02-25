@@ -76,6 +76,7 @@ class _HomePage extends State<HomePage> with TickerProviderStateMixin {
                     expandedHeight: 370,
                     pinned: true,
                     flexibleSpace: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.pin,
                       background: Stack()
                           .addSubWight(
                               getHeaderBanner().putIntoContainer(height: 220))
@@ -250,9 +251,10 @@ class _CourseList extends State<CourseList> {
             //           blurRadius: 4.0)
             //     ])
                 )
-        .putIntoGeustureDetector(GestureDetector(
+        .putIntoGestureDetector(GestureDetector(
       onTapDown: (event) {
-        Navigator.pushNamed(context, "coursePage");
+        // Navigator.pushNamed(context, "coursePage");
+         Navigator.pushNamed(context, "ChatPage");
       },
     ));
   }

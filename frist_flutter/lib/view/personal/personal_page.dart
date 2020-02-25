@@ -48,7 +48,7 @@ class _PersonalPage extends State<PersonalPage> {
         .addSubWight(
             FlatButton(
                 child: Text("文章(10)",
-                    style: TextStyle(fontSize: 18, color: Colors.white)),
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
                 onPressed: () {}),
             flex: 1)
         .addSubWight(Container(
@@ -59,7 +59,7 @@ class _PersonalPage extends State<PersonalPage> {
         .addSubWight(
             FlatButton(
                 child: Text("粉丝1.2W",
-                    style: TextStyle(fontSize: 18, color: Colors.white)),
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
                 onPressed: () {}),
             flex: 1)
         .putIntoContainer(height: 60);

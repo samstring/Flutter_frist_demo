@@ -10,7 +10,7 @@ class PersonalInfoPage extends StatelessWidget {
   List<String> settingTitles = ["个人主页", "设置", "收藏", "退出登陆"];
   @override
   Widget build(BuildContext context) {
-    // content.putIntoGeustureDetector(listener);
+    // content.putIntoGestureDetector(listener);
     return Scaffold(
       body: CustomScrollView(
       slivers: <Widget>[
@@ -49,7 +49,7 @@ class PersonalInfoPage extends StatelessWidget {
                       leftIcon: Icon(
                         Icons.person,
                         size: 24,
-                      )).putIntoGeustureDetector(GestureDetector(onTapDown: (event) {
+                      )).putIntoGestureDetector(GestureDetector(onTapDown: (event) {
                    Navigator.pushNamed(context, "personalPage");
                   }));
                 case 1:
@@ -59,7 +59,7 @@ class PersonalInfoPage extends StatelessWidget {
                       leftIcon: Icon(
                         Icons.settings,
                         size: 24,
-                      )).putIntoGeustureDetector(GestureDetector(onTapDown: (event) {
+                      )).putIntoGestureDetector(GestureDetector(onTapDown: (event) {
                    Navigator.pushNamed(context, "setting_page");
                   }));
                 case 2:
@@ -80,7 +80,7 @@ class PersonalInfoPage extends StatelessWidget {
                       Icons.exit_to_app,
                       size: 24,
                     ),
-                  ).putIntoGeustureDetector(GestureDetector(onTapDown: (event) {
+                  ).putIntoGestureDetector(GestureDetector(onTapDown: (event) {
                     showDeleteConfirmDialog1(context);
                   }));
                   break;
@@ -124,11 +124,11 @@ class PersonalInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget buttons = Flex(direction: Axis.horizontal,)
-    .addSubWight(FlatButton(child: Text("文章(10)",style:TextStyle(fontSize: 18,color:Colors.white)),onPressed:(){
+    .addSubWight(FlatButton(child: Text("文章(10)",style:TextStyle(fontSize: 16,color:Colors.white)),onPressed:(){
 
     }),flex: 1)
     .addSubWight(Container(width:1,height: 10,color: Colors.white,))
-    .addSubWight(FlatButton(child: Text("粉丝1.2W",style:TextStyle(fontSize: 18,color:Colors.white)),onPressed:(){
+    .addSubWight(FlatButton(child: Text("粉丝1.2W",style:TextStyle(fontSize: 16,color:Colors.white)),onPressed:(){
 
     }),flex: 1).putIntoContainer(height: 60);
 
@@ -156,8 +156,8 @@ class PersonalInfo extends StatelessWidget {
           left: 20,
           top: 70,
         )
-        .addSubWight(Text("姓名",style:TextStyle(fontSize: 28,color:Colors.white)),top:70,left:120)
-        .addSubWight(Text("一句话介绍你自己",style:TextStyle(fontSize: 20,color:Colors.white)),top:110,left:120)
+        .addSubWight(Text("姓名",style:TextStyle(fontSize: 25,color:Colors.white)),top:70,left:120)
+        .addSubWight(Text("一句话介绍你自己",style:TextStyle(fontSize: 18,color:Colors.white)),top:110,left:120)
         .addSubWight(buttons,left: 0,right: 0,bottom: 0)
         .putIntoContainer(
             height: 300, width: double.infinity, color: Colors.grey);

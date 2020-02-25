@@ -67,7 +67,7 @@ class _CategoryViewExample extends State<CategoryViewExample>{
         },
 
         clickLeftHeader: (BuildContext context){
-          log("点击左上方");
+          
           
         },
       );

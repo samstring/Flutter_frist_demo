@@ -59,7 +59,7 @@ class _PageContentArea extends State<PageContentArea> {
 
     return content
         // .putInfoSaveArea(top: false)
-        .putIntoGeustureDetector(GestureDetector(onTap: () {
+        .putIntoGestureDetector(GestureDetector(onTap: () {
       FocusScope.of(context).requestFocus(FocusNode());
     }));
   }

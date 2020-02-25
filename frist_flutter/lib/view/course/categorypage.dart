@@ -114,7 +114,7 @@ class CategoryLeft extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: leftRowHeight,
               alignment: Alignment.center)
-          .putIntoGeustureDetector(GestureDetector(
+          .putIntoGestureDetector(GestureDetector(
         onTapDown: (event) {
           this.onChaged(i);
         },
