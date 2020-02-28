@@ -6,7 +6,6 @@ import 'package:FlutterDemo/model/usermodel.dart';
 import 'package:FlutterDemo/view/course/categoryhome.dart';
 import 'package:FlutterDemo/view/course/coursevideo.dart';
 import 'package:FlutterDemo/view/course/userinfo.dart';
-import 'package:FlutterDemo/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:sfviewtool/sfviewtool.dart';
 

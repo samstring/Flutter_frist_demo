@@ -54,6 +54,7 @@ class _DefalutChatInput extends State<DefalutChatInput> {
           clickSendButtonBlock(content);
         }
       },
+      
     );
 
     String voiceInputButtonTip = "按住说话";
@@ -95,7 +96,8 @@ class _DefalutChatInput extends State<DefalutChatInput> {
     initView(context);
 
     // TODO: implement build
-    return Flex(
+    return Scaffold(
+      body: Flex(
       direction: Axis.horizontal,
     )
         .addSubWight(IconButton(
@@ -129,6 +131,9 @@ class _DefalutChatInput extends State<DefalutChatInput> {
               clickChatInputToolButtonBlock();
             }
           },
-        ));
+        )),
+    );
   }
 }
+
+

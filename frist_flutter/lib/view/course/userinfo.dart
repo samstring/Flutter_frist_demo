@@ -19,7 +19,7 @@ class UserInfoItem extends StatelessWidget {
     return Row().addSubWight(
       
       Image.network(
-        _userModel.avatarImageUrl == null ? "":_userModel.avatarImageUrl 
+        _userModel.avatarImage == null ? "":_userModel.avatarImage 
         ,width: 48,height: 48,
       )
       .putIntoContainer(margin: EdgeInsets.only(left: 0,top: 5,bottom: 5,right:5),color: GlobalTool.mainColor,width: 48,height: 48)

@@ -23,11 +23,9 @@ class _ChatPage extends State<ChatPage> {
   String chatId;
   List<ChatMessage> chatMessageList = List();
 
-  // bool isShowKeyBoard = false;
-  // bool isShowbottomTool = false;
   bool isFristIn = true;
   double bottomToolViewHeight = 0;
-  double keyBoarHeight = 0;
+  // double keyBoarHeight = 0;
 
   bool isJumpToLast;
 
@@ -45,65 +43,38 @@ class _ChatPage extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((duration) {
-      // if(chatContentOffSet != chatContentScrollController.position.maxScrollExtent){
-
-      // }
-
-      //键盘高度：大于零，键盘弹出，否则，键盘隐藏
-      if (MediaQuery.of(context).viewInsets.bottom > 0) {
-        // chatContentScrollController.jumpTo(chatContentScrollController.position.maxScrollExtent);
-        // isShowKeyBoard = true;
-        if (keyBoarHeight != MediaQuery.of(context).viewInsets.bottom) {
-          setState(() {
-            keyBoarHeight = MediaQuery.of(context).viewInsets.bottom;
-            bottomToolViewHeight = 0;
-          });
-        }
-      } else {
-        if (keyBoarHeight != 0) {
-          setState(() {
-            keyBoarHeight = 0;
-          });
-        }
-      }
-
-      if (keyBoarHeight != 0 || bottomToolViewHeight != 0 || isFristIn || isJumpToLast == true) {
-        chatContentScrollController
-            .jumpTo(chatContentScrollController.position.maxScrollExtent);
-        isFristIn = false;
-        isJumpToLast = false;
-      }
+    if (MediaQuery.of(context).viewInsets.bottom > 0) {
+      // setState(() {
+      //   bottomToolViewHeight = 0;
+      // });
+    }
     });
     chatContent = getChatContent(chatContentScrollController);
 
     double bottomHeight = 0;
-    if (keyBoarHeight != 0) {
-      bottomHeight = keyBoarHeight;
-    } else {
-      if (bottomToolViewHeight != 0) {
+    if (bottomToolViewHeight != 0) {
         bottomHeight = bottomToolViewHeight;
-      }
     }
-    // TODO: implement build
+
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: AppBar(
           title: Text("聊天"),
         ),
         body: Container(
           child: Stack()
               .addSubWight(
-                  Flex(
-                    direction: Axis.vertical,
-                  ).addSubWight(chatContent, flex: 1).addSubWight(
-                      getBottomInput().putIntoContainer(
-                          constraints:
-                              BoxConstraints(maxHeight: 100, minHeight: 44),
-                          width: double.infinity)),
-                  top: 0,
+                  chatContent,
+                  // top: 0,
+                  height:  MediaQuery.of(context).size.height,
                   left: 0,
                   right: 0,
-                  bottom: bottomHeight)
+                  bottom: bottomHeight+44)
+                  .addSubWight(
+                      getBottomInput(context).putIntoContainer(
+                          constraints:
+                              BoxConstraints(maxHeight: 44, minHeight: 44),
+                          width: double.infinity),left: 0,right: 0,bottom: bottomHeight)
               .addSubWight(
                   DefalutChatInputToolView(bottomToolViewHeight, 7, (index) {
                     return Stack()
@@ -132,6 +103,7 @@ class _ChatPage extends State<ChatPage> {
                   bottom: 0)
               .putInfoSaveArea(),
         ));
+     
   }
 
   ///聊天内容视图
@@ -160,10 +132,38 @@ class _ChatPage extends State<ChatPage> {
   }
 
   //底部输入框视图
-  Widget getBottomInput() {
+  Widget getBottomInput(context) {
     DefalutChatInput defalutChatInput = DefalutChatInput();
     defalutChatInput.setMoreButtonBlock(() {
       showBottomToolViewHeight(240);
+
+      // showBottomSheet(context:context,
+      //   builder: (context){
+      //     return DefalutChatInputToolView(bottomToolViewHeight, 7, (index) {
+      //               return Stack()
+      //                   .addSubWight(Image(
+      //                       image: AssetImage("assets/images/ITquanxian.png"),
+      //                       fit: BoxFit.contain))
+      //                   .addSubWight(
+      //                       Center(
+      //                         child: Text("title" + index.toString()),
+      //                       ).putIntoContainer(height: 20),
+      //                       left: 0,
+      //                       right: 0,
+      //                       bottom: 0)
+      //                   .putIntoContainer(
+      //                       padding: EdgeInsets.all(5), color: Colors.red)
+      //                   .putIntoGestureDetector(
+      //                       GestureDetector(
+      //                         // behavior: HitTestBehavior.opaque,
+      //                         onTapDown: (event) {
+      //                 chooseImage();
+      //               }
+      //               ));
+      //             });
+      //   }
+      // );
+      
     });
     defalutChatInput.setSendButtonBlock((content){
       sendTextMessage(content);
@@ -183,7 +183,7 @@ class _ChatPage extends State<ChatPage> {
   ///关闭键盘
   closeKeyBoard() {
     FocusScope.of(context).requestFocus(FocusNode());
-    keyBoarHeight = 0;
+    // keyBoarHeight = 0;
     // isShowKeyBoard = false;
   }
 
@@ -223,6 +223,7 @@ class _ChatPage extends State<ChatPage> {
        chatMessageList.add(chatMessage);
        bottomToolViewHeight = 0;
         isJumpToLast = true;
+        chatContentScrollController.jumpTo(chatContentScrollController.position.pixels);
      closeKeyBoard();
      });
   }

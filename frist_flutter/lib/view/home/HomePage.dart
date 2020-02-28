@@ -1,8 +1,5 @@
 import 'package:FlutterDemo/contanst.dart';
 import 'package:FlutterDemo/model/course/coursemodel.dart';
-import 'package:FlutterDemo/view/course/categorydetail.dart';
-import 'package:FlutterDemo/view/course/coursedetail.dart';
-import 'package:FlutterDemo/view/login.dart';
 import 'package:FlutterDemo/view/sarchbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

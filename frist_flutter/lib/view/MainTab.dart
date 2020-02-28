@@ -7,7 +7,7 @@ import 'package:FlutterDemo/view/course/categoryhome.dart';
 import 'package:FlutterDemo/view/my/mycourse.dart';
 import 'package:FlutterDemo/view/personal/personalinfo.dart';
 import 'package:FlutterDemo/view/home/HomePage.dart';
-import 'package:FlutterDemo/view/login.dart';
+import 'package:FlutterDemo/view/personal/login.dart';
 import 'package:FlutterDemo/view/resetpassword.dart';
 import 'package:FlutterDemo/view/sarchbar.dart';
 import 'package:flutter/cupertino.dart';

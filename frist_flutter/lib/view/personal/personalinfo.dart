@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:FlutterDemo/model/user_common_provider.dart';
 import 'package:FlutterDemo/view/my/usertool.dart';
+import 'package:provider/provider.dart';
 import 'package:sfviewtool/sfviewtool.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -108,9 +110,10 @@ class PersonalInfoPage extends StatelessWidget {
                 style: TextStyle(color: Colors.red),
               ),
               onPressed: () {
-                UserTool.setUserInfo(null);
+                UserTool.setUserInfo(context,null);
                 //关闭对话框并返回true
                 Navigator.of(context).pop(true);
+                Provider.of<UserInfoProvider>(context).setLoginStatus(false);
               },
             ),
           ],
@@ -120,9 +123,40 @@ class PersonalInfoPage extends StatelessWidget {
   }
 }
 
-class PersonalInfo extends StatelessWidget {
+class PersonalInfo extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _PersonalInfo();
+  }
+}
+
+class _PersonalInfo extends State<PersonalInfo> {
+
+ String userName;
+ String userDesc;
+ String avatarImageUrl;
+
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    UserTool.getUserInfo().then(( userInfo){
+      setState(() {
+        userName = userInfo.userName;
+        userDesc = userInfo.userDesc;
+        avatarImageUrl = userInfo.avatarImage;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
+
+
     Widget buttons = Flex(direction: Axis.horizontal,)
     .addSubWight(FlatButton(child: Text("文章(10)",style:TextStyle(fontSize: 16,color:Colors.white)),onPressed:(){
 
@@ -131,6 +165,18 @@ class PersonalInfo extends StatelessWidget {
     .addSubWight(FlatButton(child: Text("粉丝1.2W",style:TextStyle(fontSize: 16,color:Colors.white)),onPressed:(){
 
     }),flex: 1).putIntoContainer(height: 60);
+
+  Widget avatarImage;
+  if(avatarImageUrl == null) {
+ avatarImage = Image(
+            image: AssetImage("assets/images/ITquanxian.png"),
+            // fit: BoxFit.,
+            width: 100,
+            height: 100,
+          );
+  }else{
+    avatarImage = Image.network(avatarImageUrl,width: 100,height: 100,);
+  }
 
     return Stack()
         .addSubWight(
@@ -143,12 +189,8 @@ class PersonalInfo extends StatelessWidget {
             bottom: 0,
             top: 0)
         .addSubWight(
-          Image(
-            image: AssetImage("assets/images/ITquanxian.png"),
-            // fit: BoxFit.,
-            width: 100,
-            height: 100,
-          ).putIntoContainer(
+          
+         avatarImage.putIntoContainer(
               width: 80,
               height: 80,
               decoration:
@@ -156,8 +198,8 @@ class PersonalInfo extends StatelessWidget {
           left: 20,
           top: 70,
         )
-        .addSubWight(Text("姓名",style:TextStyle(fontSize: 25,color:Colors.white)),top:70,left:120)
-        .addSubWight(Text("一句话介绍你自己",style:TextStyle(fontSize: 18,color:Colors.white)),top:110,left:120)
+        .addSubWight(Text(userName == null?"姓名":userName,style:TextStyle(fontSize: 25,color:Colors.white)),top:70,left:120)
+        .addSubWight(Text(userDesc == null?"介绍你自己":userDesc,style:TextStyle(fontSize: 18,color:Colors.white)),top:110,left:120)
         .addSubWight(buttons,left: 0,right: 0,bottom: 0)
         .putIntoContainer(
             height: 300, width: double.infinity, color: Colors.grey);

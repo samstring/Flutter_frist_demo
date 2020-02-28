@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:FlutterDemo/view/my/usertool.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,8 +12,8 @@ class GlobalTool {
   static Future<GlobalTool> initGloble() async{
 GlobalTool globalTool =  GlobalTool();
 final SharedPreferences prefs = await _prefs;
-print(prefs.get("userId"));
-    if (prefs.get("userId") == null || prefs.get("userId") == false || prefs.getString("userId").isEmpty || prefs.get("userId").toString().endsWith("")){
+String userId = prefs.get("b_Id");
+    if ( userId== null|| userId.isEmpty){
       isLogin = false;
     }else{
       isLogin = true;

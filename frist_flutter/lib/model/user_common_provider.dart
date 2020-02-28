@@ -13,9 +13,11 @@ class LoadingViewProvide with ChangeNotifier {
 
 class LoginInfoProvide with ChangeNotifier {
    UserModel user = UserModel();
+   bool isLogin;
 
+   
   setPhoneNumber(String phone){
-     user.phone = phone;
+     user.phoneNumber = phone;
     notifyListeners();
   }
 
@@ -24,4 +26,22 @@ class LoginInfoProvide with ChangeNotifier {
     user.password = password;
     notifyListeners();
   }
+
+  
+}
+
+class UserInfoProvider with ChangeNotifier{
+  UserModel user = UserModel();
+   bool isLogin;
+
+  setLoginStatus(bool isLogin){
+     this.isLogin = isLogin;
+     notifyListeners();
+   }
+
+  setUserInfo(UserModel userModel){
+    this.user = userModel;
+    notifyListeners();
+  }
+
 }

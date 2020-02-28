@@ -1,4 +1,4 @@
-import 'package:FlutterDemo/view/login.dart';
+
 import 'package:FlutterDemo/view/personal/detal_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
