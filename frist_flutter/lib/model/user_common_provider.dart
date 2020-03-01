@@ -41,6 +41,11 @@ class UserInfoProvider with ChangeNotifier{
 
   setUserInfo(UserModel userModel){
     this.user = userModel;
+    if (this.user != null) {
+      isLogin = true;
+    }else{
+      isLogin = false;
+    }
     notifyListeners();
   }
 

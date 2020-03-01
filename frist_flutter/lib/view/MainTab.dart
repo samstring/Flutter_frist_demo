@@ -5,7 +5,7 @@ import 'package:FlutterDemo/global.dart';
 import 'package:FlutterDemo/view/chat/chat_page.dart';
 import 'package:FlutterDemo/view/course/categoryhome.dart';
 import 'package:FlutterDemo/view/my/mycourse.dart';
-import 'package:FlutterDemo/view/personal/personalinfo.dart';
+import 'package:FlutterDemo/view/personal/personalinfo_home.dart';
 import 'package:FlutterDemo/view/home/HomePage.dart';
 import 'package:FlutterDemo/view/personal/login.dart';
 import 'package:FlutterDemo/view/resetpassword.dart';

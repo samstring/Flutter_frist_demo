@@ -1,3 +1,5 @@
+import 'package:FlutterDemo/model/usermodel.dart';
+import 'package:FlutterDemo/view/my/usertool.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sfviewtool/sfviewtool.dart';
@@ -14,6 +16,9 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPage extends State<SettingPage> {
+  String avatarImageUrl;
+  String userName;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -31,6 +36,21 @@ class _SettingPage extends State<SettingPage> {
   }
 
   Widget getInfomationArea() {
+    Widget imageWidght = Image(
+                  image: avatarImageUrl == null ? AssetImage("assets/images/ITquanxian.png"):NetworkImage(avatarImageUrl),
+                  width: 40,
+                  height: 40,
+                );
+          
+    UserTool.getUserInfo().then((userModel){
+      if (userModel != null  && userModel.avatarImage != null) {
+       setState(() {
+         avatarImageUrl = userModel.avatarImage;
+         userName = userModel.userName;
+       });
+      }
+    });
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
     )
@@ -44,12 +64,8 @@ class _SettingPage extends State<SettingPage> {
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             Stack()
-                .addSubWight(Image(
-                  image: AssetImage("assets/images/ITquanxian.png"),
-                  width: 40,
-                  height: 40,
-                ),top: 25,left: 10)
-                .addSubWight(Text("姓名",style: TextStyle(fontSize: 20),),top: 30,left: 60)
+                .addSubWight(imageWidght,top: 25,left: 10)
+                .addSubWight(Text(userName == null ? "":userName,style: TextStyle(fontSize: 20),),top: 30,left: 60)
                 .putIntoContainer(height: 90),
             //分割线
             Container(

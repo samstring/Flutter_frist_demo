@@ -9,7 +9,7 @@ import 'package:FlutterDemo/view/course/coursedetail.dart';
 import 'package:FlutterDemo/view/my/usertool.dart';
 import 'package:FlutterDemo/view/personal/personal_page.dart';
 import 'package:FlutterDemo/view/personal/personal_setting_page.dart';
-import 'package:FlutterDemo/view/personal/setting_page.dart';
+import 'package:FlutterDemo/view/personal/all_setting_page.dart';
 import 'package:FlutterDemo/view/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterDemo/view/personal/login.dart';
@@ -146,7 +146,7 @@ class RouteManger {
       page = SettingPage();
     }
 
-    if (page == "PersonalInfoSetting") {
+    if (settings.name == "PersonalInfoSetting") {
       page = PersonalInfoSetting();
     }
 

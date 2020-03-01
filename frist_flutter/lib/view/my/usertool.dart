@@ -40,7 +40,13 @@ class UserTool{
       //清除用户信息
       // prefs.setString("b_Id", "");
       GlobalTool.isLogin = false;
-        
+         prefs.setString("b_Id", null);
+        prefs.setString("phoneNumber",null);
+        prefs.setString("userName", null);
+        prefs.setString("userDesc", null);
+        prefs.setString("avatarImage", null);
+        prefs.setString("b_tokenString", null);
+        prefs.setString("chat_tokenString", null);
     }
 
     Provider.of<UserInfoProvider>(context).setUserInfo(model);
@@ -49,7 +55,7 @@ class UserTool{
   static Future<UserModel> getUserInfo() async{
     final SharedPreferences prefs = await _prefs;
     UserToken token = UserToken(b_tokenString: prefs.get("b_tokenString"),chat_tokenString:prefs.get("chat_tokenString") );
-    UserModel model = UserModel(b_Id: prefs.get("b_tokenString"),phoneNumber:prefs.get("phoneNumber"),userName: prefs.get("userName"),userDesc:prefs.get("userDesc"),avatarImageUrl:prefs.get("avatarImage"),bbToken: token);
+    UserModel model = UserModel(b_Id: prefs.get("b_Id"),phoneNumber:prefs.get("phoneNumber"),userName: prefs.get("userName"),userDesc:prefs.get("userDesc"),avatarImageUrl:prefs.get("avatarImage"),bbToken: token);
     return model;
   }
 }

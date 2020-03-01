@@ -24,13 +24,28 @@ class NetWorkTool  {
         Response response = await NetWorkTool.getDio().post(url,queryParameters: params);
         this.netWorkCallback(response,null);  
     } catch (e) {
-      Exception error = Exception("服务器繁忙");
+      Exception error = Exception(e.toString());
       
 this.netWorkCallback(null,error);
     }
 
     
   }
+
+
+void postData(String url,var data) async {
+    try {
+        Response response = await NetWorkTool.getDio().post(url,data: data,);
+        this.netWorkCallback(response,null);  
+    } catch (e) {
+      Exception error = Exception(e.toString());
+      
+this.netWorkCallback(null,error);
+    }
+
+    
+  }
+  
 }
 
 // typedef netWordResopne = void netWorKResopneBlock(int index);

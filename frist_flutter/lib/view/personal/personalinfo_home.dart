@@ -166,17 +166,22 @@ class _PersonalInfo extends State<PersonalInfo> {
 
     }),flex: 1).putIntoContainer(height: 60);
 
-  Widget avatarImage;
-  if(avatarImageUrl == null) {
- avatarImage = Image(
-            image: AssetImage("assets/images/ITquanxian.png"),
+  Widget avatarImage =  Image(
+            image: avatarImageUrl == null ? AssetImage("assets/images/ITquanxian.png") : NetworkImage(avatarImageUrl),
             // fit: BoxFit.,
             width: 100,
             height: 100,
           );
-  }else{
-    avatarImage = Image.network(avatarImageUrl,width: 100,height: 100,);
-  }
+   UserTool.getUserInfo().then((userModel){
+      if (userModel != null  && userModel.avatarImage != null) {
+       setState(() {
+          avatarImageUrl = userModel.avatarImage;
+          userName = userModel.userName;
+          userDesc = userModel.userDesc;
+       });
+      }
+    });
+
 
     return Stack()
         .addSubWight(
@@ -199,7 +204,7 @@ class _PersonalInfo extends State<PersonalInfo> {
           top: 70,
         )
         .addSubWight(Text(userName == null?"姓名":userName,style:TextStyle(fontSize: 25,color:Colors.white)),top:70,left:120)
-        .addSubWight(Text(userDesc == null?"介绍你自己":userDesc,style:TextStyle(fontSize: 18,color:Colors.white)),top:110,left:120)
+        .addSubWight(Text(userDesc == null?"":userDesc,style:TextStyle(fontSize: 18,color:Colors.white)),top:110,left:120)
         .addSubWight(buttons,left: 0,right: 0,bottom: 0)
         .putIntoContainer(
             height: 300, width: double.infinity, color: Colors.grey);

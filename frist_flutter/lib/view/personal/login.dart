@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:FlutterDemo/contanst.dart';
+import 'package:FlutterDemo/tool/loading_view.dart';
 import 'package:FlutterDemo/view/my/usertool.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -31,7 +32,6 @@ class CourseloginPage extends StatelessWidget {
 
 //页面区域
 class PageContentArea extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _PageContentArea();
@@ -39,21 +39,24 @@ class PageContentArea extends StatefulWidget {
 }
 
 class _PageContentArea extends State<PageContentArea> {
-    InputUserInfo inputUserInfo;
-    @override
+  InputUserInfo inputUserInfo;
+  AboutText aboutText;
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     inputUserInfo = InputUserInfo();
+    aboutText = AboutText();
   }
+
   @override
   Widget build(BuildContext context) {
     Stack content = Stack()
-        .addSubWight(Container(
-          child: ((Provider.of<LoadingViewProvide>(context).isShowLoading)
-              ? CircularProgressIndicator()
-              : null),
-        ))
+        // .addSubWight(Container(
+        //   child: ((Provider.of<LoadingViewProvide>(context).isShowLoading)
+        //       ? CircularProgressIndicator()
+        //       : null),
+        // ))
         .addSubWight(
             Image(
               fit: BoxFit.fill,
@@ -63,8 +66,8 @@ class _PageContentArea extends State<PageContentArea> {
             top: 0,
             left: 0,
             right: 0)
-        .addSubWight(inputUserInfo, bottom: 80,top: 0,left: 0,right: 0)
-        .addSubWight(AboutText(), bottom: 0, left: 0, right: 0);
+        .addSubWight(inputUserInfo, bottom: 80, top: 0, left: 0, right: 0)
+        .addSubWight(aboutText, bottom: 0, left: 0, right: 0);
 
     return content
         // .putInfoSaveArea(top: false)
@@ -91,23 +94,21 @@ class _InputUserInfo extends State<InputUserInfo> {
   Widget build(BuildContext context) {
     inputUserText = InputUserText(loginMode);
     return Column()
-        .addSubWight(
-           
-            Column()
-                .addSubWight(Image(
-                  image: AssetImage("assets/images/ITquanxian.png"),
-                  width: 60.0,
-                  height: 60.0,
-                ))
-                .addSubWight(Text(
-                  "尚科科技",
-                  style: TextStyle(color: Colors.white, fontSize: 30),
-                ))
-                .addSubWight(Text(
-                  "真诚为你服务",
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ))
-                .putIntoContainer(margin: EdgeInsets.only(top: 90, bottom: 70)))
+        .addSubWight(Column()
+            .addSubWight(Image(
+              image: AssetImage("assets/images/ITquanxian.png"),
+              width: 60.0,
+              height: 60.0,
+            ))
+            .addSubWight(Text(
+              "尚科科技",
+              style: TextStyle(color: Colors.white, fontSize: 30),
+            ))
+            .addSubWight(Text(
+              "真诚为你服务",
+              style: TextStyle(color: Colors.white, fontSize: 15),
+            ))
+            .putIntoContainer(margin: EdgeInsets.only(top: 90, bottom: 70)))
         .addSubWight(inputUserText)
         .addSubWight(FlatButton(
           color: Color.fromRGBO(107, 179, 55, 1),
@@ -161,12 +162,19 @@ class _InputUserInfo extends State<InputUserInfo> {
   }
 
   void clickLoginButton(BuildContext context, InputUserText inputUserText) {
+    
+    showDialog(
+      context: context,
+      builder: (context){
+        return LoadingDialog();
+      }
+    );
+
     FocusScope.of(context).requestFocus(FocusNode());
     ScaffoldState _state =
         context.ancestorStateOfType(TypeMatcher<ScaffoldState>());
 
     UserModel user = Provider.of<LoginInfoProvide>(context).user;
-    log((user.phoneNumber == null).toString());
     String phone = user.phoneNumber;
     String password = user.password;
 
@@ -196,17 +204,23 @@ class _InputUserInfo extends State<InputUserInfo> {
 
     NetWorkTool netTool = NetWorkTool();
     netTool.netWorkCallback = (Response response, Exception exception) {
+      Navigator.pop(context);
       String responeString = response.toString();
-        Map map = convert.jsonDecode(responeString);
+      Map map = convert.jsonDecode(responeString);
       // log(response.toString());
-      if (map != null  && map['resultCode'] == "200") {
-        
-        UserModel userModel = UserModel.fromJson(map["result"]);
-        UserTool.setUserInfo(context,userModel).then((onValue){
-          Provider.of<LoadingViewProvide>(context).setLoadingState(false);
-        });
-        
-        log(userModel.phoneNumber);
+      if (map != null) {
+        if (map['resultCode'] == "200") {
+          UserModel userModel = UserModel.fromJson(map["result"]);
+          UserTool.setUserInfo(context, userModel).then((onValue) {
+            Provider.of<LoadingViewProvide>(context).setLoadingState(false);
+          });
+        } else {
+          _state.showSnackBar(
+            SnackBar(
+              content: Text(map['error'].toString()),
+            ),
+          );
+        }
       } else {
         //调用ScaffoldState的showSnackBar来弹出SnackBar
         _state.showSnackBar(
@@ -217,8 +231,6 @@ class _InputUserInfo extends State<InputUserInfo> {
 
         Provider.of<LoadingViewProvide>(context).setLoadingState(false);
       }
-
-      
     };
 
     netTool.post(login_url, {
@@ -226,7 +238,6 @@ class _InputUserInfo extends State<InputUserInfo> {
       "user.password": password,
       "loginModel": "1"
     });
-    
   }
 }
 
