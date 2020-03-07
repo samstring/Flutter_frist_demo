@@ -54,7 +54,7 @@ class _PersonalInfoSetting extends State<PersonalInfoSetting> {
             Stack()
                 .addSubWight(Text("头像"), top: 24, left: 15)
                 .addSubWight(
-                    imageWidght.putIntoContainer(width: 50, height: 50),
+                     ClipOval(child: imageWidght,).putIntoContainer(width: 50,height: 50),
                     top: 10,
                     right: 24)
                 .addSubWight(

@@ -171,7 +171,11 @@ class _PersonalInfo extends State<PersonalInfo> {
             // fit: BoxFit.,
             width: 100,
             height: 100,
-          );
+          ).putIntoGestureDetector(GestureDetector(
+            onTapDown: (event){
+              Navigator.pushNamed(context,"ViewImagePage", arguments:{'imageUrl':avatarImageUrl});
+            },
+          ));
    UserTool.getUserInfo().then((userModel){
       if (userModel != null  && userModel.avatarImage != null) {
        setState(() {
@@ -194,12 +198,8 @@ class _PersonalInfo extends State<PersonalInfo> {
             bottom: 0,
             top: 0)
         .addSubWight(
-          
-         avatarImage.putIntoContainer(
-              width: 80,
-              height: 80,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.white)),
+          ClipOval(child: avatarImage,).putIntoContainer(width: 80,height: 80),
+        
           left: 20,
           top: 70,
         )

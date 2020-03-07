@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sfviewtool/sfviewtool.dart';
 
-const double LeftWidth = 60;
+const double LeftWidth = 80;
 typedef LeftViewHeaderBuilder = Widget Function(BuildContext context);
 typedef LeftViewBottomBuilder = Widget Function(BuildContext context);
 typedef LeftItemBuilder = Widget Function(
@@ -50,25 +50,25 @@ typedef ClickRightHeader = Function(BuildContext context);
 typedef ClickRightBottom = Function(BuildContext context);
 
 class CategoryViewTool extends StatefulWidget {
-  final LeftViewHeaderBuilder leftViewHeaderBuilder;
-  final LeftViewBottomBuilder leftViewBottomBuilder;
-  final LeftItemBuilder leftItemBuilder;
+   LeftViewHeaderBuilder leftViewHeaderBuilder;
+   LeftViewBottomBuilder leftViewBottomBuilder;
+   LeftItemBuilder leftItemBuilder;
 
-  final RightViewHeaderBuilder rightViewHeaderBuilder;
-  final RightViewBottomBuilder rightViewBottomBuilder;
-  final RightItemBuilder rightItemBuilder;
-  final RightItemHeaderBuilder rightItemHeaderBuilder;
-  final RightItemBottomBuilder rightItemBottomBuilder;
+   RightViewHeaderBuilder rightViewHeaderBuilder;
+   RightViewBottomBuilder rightViewBottomBuilder;
+   RightItemBuilder rightItemBuilder;
+   RightItemHeaderBuilder rightItemHeaderBuilder;
+   RightItemBottomBuilder rightItemBottomBuilder;
 
-  final ClickLeftItem clickLeftItem;
-  final ClickRightItem clickRightItem;
-  final ClickRightItemHeader clickRightItemHeader;
-  final ClickRightItemBottom clickRightItemBottom;
+   ClickLeftItem clickLeftItem;
+   ClickRightItem clickRightItem;
+   ClickRightItemHeader clickRightItemHeader;
+   ClickRightItemBottom clickRightItemBottom;
 
-  final ClickLeftHeader clickLeftHeader;
-  final ClickLeftBottom clickLeftBottom;
-  final ClickRightHeader clickRightHeader;
-  final ClickRightBottom clickRightBottom;
+   ClickLeftHeader clickLeftHeader;
+   ClickLeftBottom clickLeftBottom;
+   ClickRightHeader clickRightHeader;
+   ClickRightBottom clickRightBottom;
 
    List leftViewList;
    List rightViewList;
@@ -124,8 +124,9 @@ class CategoryViewTool extends StatefulWidget {
 
   updateRightList(List rightViewList){
     this.rightViewList = rightViewList;
-    _categoryViewTool.rightViewList = rightViewList;
+    _categoryViewTool.updateRightList(rightViewList);
     _categoryViewTool._rightScrollController.jumpTo(0);
+    
   }
 
   updateLeftList(List leftViewList){
@@ -146,29 +147,29 @@ class CategoryViewTool extends StatefulWidget {
 }
 
 class _CategoryViewTool extends State<CategoryViewTool> {
-  final LeftViewHeaderBuilder leftViewHeaderBuilder;
-  final LeftViewBottomBuilder leftViewBottomBuilder;
-  final LeftItemBuilder leftItemBuilder;
+   LeftViewHeaderBuilder leftViewHeaderBuilder;
+   LeftViewBottomBuilder leftViewBottomBuilder;
+   LeftItemBuilder leftItemBuilder;
 
-  final RightViewHeaderBuilder rightViewHeaderBuilder;
-  final RightViewBottomBuilder rightViewBottomBuilder;
-  final RightItemBuilder rightItemBuilder;
-  final RightItemHeaderBuilder rightItemHeaderBuilder;
-  final RightItemBottomBuilder rightItemBottomBuilder;
+   RightViewHeaderBuilder rightViewHeaderBuilder;
+   RightViewBottomBuilder rightViewBottomBuilder;
+   RightItemBuilder rightItemBuilder;
+   RightItemHeaderBuilder rightItemHeaderBuilder;
+   RightItemBottomBuilder rightItemBottomBuilder;
 
-  final ClickLeftItem clickLeftItem;
-  final ClickRightItem clickRightItem;
-  final ClickRightItemHeader clickRightItemHeader;
-  final ClickRightItemBottom clickRightItemBottom;
+   ClickLeftItem clickLeftItem;
+   ClickRightItem clickRightItem;
+   ClickRightItemHeader clickRightItemHeader;
+   ClickRightItemBottom clickRightItemBottom;
 
-  final ClickLeftHeader clickLeftHeader;
-  final ClickLeftBottom clickLeftBottom;
-  final ClickRightHeader clickRightHeader;
-  final ClickRightBottom clickRightBottom;
+   ClickLeftHeader clickLeftHeader;
+   ClickLeftBottom clickLeftBottom;
+   ClickRightHeader clickRightHeader;
+   ClickRightBottom clickRightBottom;
 
    List leftViewList;
    List rightViewList;
-  final double leftViewWidth;
+   double leftViewWidth;
 
   int selectIndex = 0;
 
@@ -186,6 +187,13 @@ class _CategoryViewTool extends State<CategoryViewTool> {
       this.selectIndex = index;
       _rightScrollController.jumpTo(0);
     });
+  }
+
+  void updateRightList(List rightList){
+    // setState(() {
+      this.rightViewList = rightList;
+      
+    // });
   }
 
   _CategoryViewTool(
@@ -265,7 +273,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
                     onTapDown:(TapDownDetails details){
 
  if(this.clickLeftItem != null){
-                        log("dfdf");
+            
                         clickLeftItem(context,itemList,index);
                       }
 
@@ -297,155 +305,10 @@ class _CategoryViewTool extends State<CategoryViewTool> {
   }
 
   Widget buildRightView(BuildContext context, List itemList) {
-    log("执行"+itemList.toString());
-    // return NotificationListener<ScrollNotification>(
-    //     // 添加 NotificationListener 作为父容器
-    //     onNotification: (scrollNotification) {
-    //       if(rightContentHeiht == 0){
-    //            rightContentHeiht =   scrollNotification.metrics.maxScrollExtent;
-    //           }
-              
-    //       log(scrollNotification.metrics.pixels.toString()+"----"+context.size.height.toString()+"---"+_rightScrollController.position.maxScrollExtent.toString());
-    //       // log("==="+_rightScrollController.position.minScrollExtent.toString());
-          
-    //       // 注册通知回调
-    //       if (scrollNotification is ScrollStartNotification) {
-    //         // 滚动开始
-    //       }
-    //        else if (scrollNotification is ScrollUpdateNotification) {
-    //         if (scrollNotification.metrics.pixels < 0) {
-    //           // if (scrollNotification.metrics.pixels < -changeHeight){
-    //              setState(() {
-    //                log("下拉"+_rightHeaderPreHeight.toString());
-    //             _rightHeaderPreHeight = -scrollNotification.metrics.pixels;
-    //           });
-    //           // }
-             
-    //           if (scrollNotification.metrics.pixels < -changeHeight){
-    //             _changeState = ChangeState.chageStatePre;
-    //           }
-
-    //         // }
-            
-              
-    //         }
-    //         else if(scrollNotification.metrics.pixels > context.size.height){
-              
-    //            setState(() {
-    //             _rightBottomNextHeight = scrollNotification.metrics.pixels - rightContentHeiht;
-    //           });
-    //           // }
-             
-    //           if (scrollNotification.metrics.pixels > rightContentHeiht+changeHeight){
-    //             _changeState = ChangeState.chagetStateNext;
-    //           }
-    //         }
-    //          else {
-               
-    //           setState(() {
-    //             if(_rightHeaderPreHeight > 0.0){
-    //               _rightHeaderPreHeight  = _rightHeaderPreHeight -1;
-    //             }
-    //             if(_rightHeaderPreHeight <= 0.0){
-    //               _rightHeaderPreHeight = 0;
-    //             }
-                
-    //             _rightBottomNextHeight = 0;
-    //             // _changeState = ChangeState.chageStateNormal;
-    //           });
-    //         }
-    //         // 滚动位置更新
-    //       } else if (scrollNotification is ScrollEndNotification) {
-    //         //滚动结束后改变index
-    //         if (_changeState == ChangeState.chageStatePre) {
-    //           setState(() {
-    //             selectIndex = selectIndex - 1 < 0 ? 0 : selectIndex - 1;
-    //             _changeState = ChangeState.chageStateNormal;
-    //           });
-    //         }
-    //          if (_changeState == ChangeState.chagetStateNext) {
-    //            setState(() {
-    //             //  log("dfdf234");
-    //            rightContentHeiht = 0;
-    //            _rightBottomNextHeight = 0;
-    //            if(selectIndex + 1 <= itemList.length-1){
-              
-    //             selectIndex = selectIndex + 1 ;
-              
-    //            }
-    //            });
-              
-    //         }
-
-    //       }
-    //     },
-    //     child: CustomScrollView(
-    //       controller: _rightScrollController,
-    //       physics: const AlwaysScrollableScrollPhysics(),
-    //       scrollDirection: Axis.vertical,
-    //       slivers: <Widget>[
-    //         SliverToBoxAdapter(
-    //           child: Stack()
-    //               .addSubWight(
-    //                   Center(
-    //                     child: Text("放开切换上一个item"),
-    //                   ),
-    //                   left: 0,
-    //                   right: 0,
-    //                   top: 0)
-    //               .putIntoContainer(height: _rightHeaderPreHeight > changeHeight ? _rightHeaderPreHeight : 0),
-    //         ),
-           
-    //         SliverToBoxAdapter(
-    //           child: rightViewHeaderBuilder == null
-    //               ? Container()
-    //               : rightViewHeaderBuilder(context).putIntoListner(Listener(
-    //                   onPointerDown: (event) {
-    //                     if (clickRightHeader != null) {
-    //                       clickRightHeader(context);
-    //                     }
-    //                   },
-    //                 )),
-    //         ),
-    //         SliverToBoxAdapter(
-    //           child: Container(
-    //             child: ListView.builder(
-    //               shrinkWrap: true,
-    //               physics: const NeverScrollableScrollPhysics(),
-    //               itemCount: itemList == null ? 0 : itemList.length,
-    //               itemBuilder: (BuildContext context, int index) {
-    //                 return buildRighItem(context, itemList, index);
-    //               },
-    //             ),
-    //           ),
-    //         ),
-    //         SliverToBoxAdapter(
-    //           child: rightViewBottomBuilder == null
-    //               ? Container()
-    //               : rightViewBottomBuilder(context).putIntoListner(Listener(
-    //                   onPointerDown: (event) {
-    //                     if (clickRightBottom != null) {
-    //                       clickRightBottom(context);
-    //                     }
-    //                   },
-    //                 )),
-    //         ),
-    //         SliverToBoxAdapter(
-    //           child: Stack()
-    //               .addSubWight(
-    //                   Center(
-    //                     child: Text("放开切换下一个item"),
-    //                   ),
-    //                   left: 0,
-    //                   right: 0,
-    //                   top: 0)
-    //               .putIntoContainer(height: _rightBottomNextHeight > changeHeight ? _rightBottomNextHeight : 0),
-    //         )
-    //       ],
-    //     ));
-
-
+    log("执行1");
+    
     return CustomScrollView(
+      // key: UniqueKey(),
           controller: _rightScrollController,
           physics: const AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
@@ -476,6 +339,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
             SliverToBoxAdapter(
               child: Container(
                 child: ListView.builder(
+                  key: UniqueKey(),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: itemList == null ? 0 : itemList.length,
@@ -514,6 +378,7 @@ class _CategoryViewTool extends State<CategoryViewTool> {
 
   ///创建右边的item
   Widget buildRighItem(BuildContext context, List itemList, int index) {
+    log("df");
     Column itemView = Column();
     //item头部
     if (rightItemHeaderBuilder != null) {

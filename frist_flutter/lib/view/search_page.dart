@@ -1,18 +1,40 @@
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:FlutterDemo/contanst.dart';
+import 'package:FlutterDemo/tool/networktool.dart';
 import 'package:flutter/material.dart';
 import 'package:search_pageview/search_page.dart';
+import 'dart:convert' as convert;
 
+class SearchPage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _SearchPage();
+  }
+}
 
-
-class SearchPage extends StatelessWidget {
+class _SearchPage extends State<SearchPage> {
+ List<String> hotSearchList = List();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   
+    
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    List<String> hotSearchList = ["热门搜索1","热门搜索2","热门搜索3"];
+    //  = ["热门搜索1","热门搜索2","热门搜索3"];
+ if (hotSearchList == null || hotSearchList.length == 0) {
+        loadSearchWord(context);
+      }
+      
     return Scaffold(
+     
       
       body: 
       SafeArea(
@@ -45,6 +67,30 @@ class SearchPage extends StatelessWidget {
           )
       )
       );
+  }
+
+  void loadSearchWord(BuildContext context) {
+    NetWorkTool netWorkTool = NetWorkTool();
+    netWorkTool.netWorkCallback = (response, error) {
+      String responeString = response.toString();
+      Map map = convert.jsonDecode(responeString);
+      if (map != null) {
+        if (map['resultCode'] == "200") {
+          List resultList = (map["result"]);
+          for (var i = 0; i < resultList.length; i++) {
+            this.hotSearchList.add(resultList[i]);
+          }
+          
+          setState(() {
+        //  this.hotSearchList = result;
+          });
+        }
+      } else {
+      
+      }
+    };
+    netWorkTool.post(searchword_url, {
+    });
   }
   
 }

@@ -88,12 +88,12 @@ _VideoScreenState(this.url);
  
 
    _courseModel = CourseModel();
-    _courseModel.courseTitle = "Flutter课程Flutter课程Flutter课程";
+    _courseModel.title = "Flutter课程Flutter课程Flutter课程";
     _courseModel.courseFor = "男女老少皆宜";
-    _courseModel.courseDesc = "这是课程简介";
+    _courseModel.videoInfo = "这是课程简介";
     _courseModel.contentModels = itemModels;
     _courseModel.favouriteCount = 100;
-    _courseModel.imageUrl = "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";
+    _courseModel.videoUrlAdress = "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";
     _courseModel.courseDescImageList = List();
     _courseModel.courseDescImageList.add("https://upload-images.jianshu.io/upload_images/6218810-f0c8fb9bc9d5e1c2.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200");
     _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");

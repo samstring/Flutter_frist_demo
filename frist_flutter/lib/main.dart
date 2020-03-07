@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:FlutterDemo/global.dart';
+import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:FlutterDemo/model/sfmodel.dart';
 import 'package:FlutterDemo/tool/erropage.dart';
+import 'package:FlutterDemo/tool/image_view.dart';
 import 'package:FlutterDemo/view/chat/chat_page.dart';
 import 'package:FlutterDemo/view/course/course_canlendar.dart';
 import 'package:FlutterDemo/view/course/coursedetail.dart';
@@ -72,6 +74,7 @@ class RouteManger {
   static String loginPageString = "loginPage";
   static PageRoute<dynamic> getRoute(RouteSettings settings) {
     var page;
+    Map aragments = settings.arguments;
 
     if (settings.name == loginPageString) {
       page = CourseloginPage();
@@ -131,7 +134,11 @@ class RouteManger {
 //      }else{
 //        page = CourseloginPage();
 //      }
-      page = CourseDetailPage();
+// Map map = settings.arguments;
+    // String model_coverImageUrl = aragments["model_coverImageUrl"];//map[''];
+    CourseModel model = CourseModel();
+    model.coverImageUrl = "http://n.sinaimg.cn/photo/transform/525/w300h225/20200119/c159-inhcycc3051073.jpg";
+      page = CourseDetailPage(courseModel: model);
     }
 
     if (settings.name == "personalPage") {
@@ -148,6 +155,15 @@ class RouteManger {
 
     if (settings.name == "PersonalInfoSetting") {
       page = PersonalInfoSetting();
+    }
+    if(settings.name == "ViewImagePage"){
+      // page = ViewImagePage(imageUrl: aragments["imageUrl"]);
+      return MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context){
+          return ViewImagePage(imageUrl: aragments["imageUrl"]);
+        }
+      );
     }
 
     //如果找不到相应的路由，则设置为空

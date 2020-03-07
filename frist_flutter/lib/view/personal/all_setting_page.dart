@@ -64,8 +64,8 @@ class _SettingPage extends State<SettingPage> {
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             Stack()
-                .addSubWight(imageWidght,top: 25,left: 10)
-                .addSubWight(Text(userName == null ? "":userName,style: TextStyle(fontSize: 20),),top: 30,left: 60)
+                .addSubWight(ClipOval(child: imageWidght,).putIntoContainer(width: 50,height: 50),top: 25,left: 10)
+                .addSubWight(Text(userName == null ? "":userName,style: TextStyle(fontSize: 20),),top: 30,left: 70)
                 .putIntoContainer(height: 90),
             //分割线
             Container(

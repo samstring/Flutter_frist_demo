@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:FlutterDemo/model/course/category_model.dart';
 import 'package:FlutterDemo/model/course/coursecategorymodel.dart';
+import 'package:FlutterDemo/tool/networktool.dart';
 import 'package:FlutterDemo/view/course/categorypage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,7 +11,9 @@ import 'package:provider/provider.dart';
 import 'package:sfviewtool/sfviewtool.dart';
 import 'package:FlutterDemo/tool/categaory_view/lib/category_view_tool.dart';
 
+import '../../contanst.dart';
 import '../../info_provider.dart';
+import 'dart:convert' as convert;
 
 class CategoryPageHome extends StatefulWidget {
   @override
@@ -25,24 +29,36 @@ class CategoryPageHome extends StatefulWidget {
 }
 
 class _CategoryPageHome extends State<CategoryPageHome> {
+
+
+ List<VideoCategoryModel> videoCategoryModelList = new List();
+  
   List<CategoryLeftItemModel> _titles;
   List<CategoryRightModel> _subItems;
   String listKey;
+  int leftSelectIndex = 0;
   @override
   Widget build(BuildContext context) {
-    List leftList = List();
-    for (var i = 0; i < 10; i++) {
-      leftList.add("分类" + i.toString());
+
+    if (videoCategoryModelList.length <=0) {
+      loadCategory(context);
+    }
+    
+    if(videoCategoryModelList.length > 0){
+      List leftList = List();
+    for (var i = 0; i < videoCategoryModelList.length; i++) {
+      leftList.add(videoCategoryModelList[i].name);
     }
 
     List rightList = List();
-    for (var i = 0; i < 3; i++) {
-      rightList.add(0.toString());
+    for (var i = 0; i < videoCategoryModelList[leftSelectIndex].videoCategroySectionModels.length; i++) {
+      rightList.add(videoCategoryModelList[leftSelectIndex].videoCategroySectionModels[i]);
     }
 
-    CategoryViewTool categoryView;
-    categoryView = CategoryViewTool(
-      key: Key(listKey),
+
+      CategoryViewTool categoryView = null;
+       categoryView = CategoryViewTool(
+      key: Key(leftSelectIndex.toString()),
       leftViewList: leftList,
       rightViewList: rightList,
       leftItemBuilder:
@@ -73,7 +89,7 @@ class _CategoryPageHome extends State<CategoryPageHome> {
                   left: 0,
                   right: 0);
 
-          return item.putIntoContainer(height: 60, color: Colors.white);
+          return item.putIntoContainer(height: 60,width: 100, color: Colors.white);
         } else {
           Stack item = Stack()
               .addSubWight(
@@ -94,14 +110,18 @@ class _CategoryPageHome extends State<CategoryPageHome> {
         }
       },
       rightViewHeaderBuilder: (BuildContext context) {
+        List<VideoCategoryBannerItemModels> videoCategoryBannerItemModels =videoCategoryModelList[leftSelectIndex].videoCategoryBannerItemModels;
+        if (videoCategoryBannerItemModels == null || videoCategoryBannerItemModels.length <= 0) {
+          return Container();
+        }
         return Swiper(
           itemBuilder: (BuildContext context, int index) {
             return new Image.network(
-              "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70",
-              fit: BoxFit.fill,
+              videoCategoryBannerItemModels[index].imageUrl,
+              fit: BoxFit.fitWidth,
             );
           },
-          itemCount: 3,
+          itemCount: videoCategoryBannerItemModels.length,
           autoplay: true,
           pagination: new SwiperPagination(),
           control: new SwiperControl(iconPrevious: null, iconNext: null),
@@ -113,25 +133,27 @@ class _CategoryPageHome extends State<CategoryPageHome> {
         Column content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         );
+        VideoCategroySectionModels section = itemList[index];
         content = content
-            .addSubWight(Text(itemList[index]).putIntoContainer(height: 30));
+            .addSubWight(Text(section.name).putIntoContainer(height: 30));
 
         Wrap itemContent = Wrap(
           spacing: 10,
           runSpacing: 10,
         );
-        for (var i = 0; i < rightList.length; i++) {
-          // log(rightList.toString());
+        VideoCategroySectionModels sectionModel = itemList[index];
+        for (var i = 0; i < sectionModel.videoCategoryItemModels.length; i++) {
+        
           LayoutBuilder item = LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               return Column()
-                  .addSubWight(Image(
-                      image: AssetImage("assets/images/ITquanxian.png"),
-                      fit: BoxFit.contain,
+                  .addSubWight( Image(
+                      image: sectionModel.videoCategoryItemModels[i].imageUrl == null ? AssetImage(""):NetworkImage(sectionModel.videoCategoryItemModels[i].imageUrl),
+                      fit: BoxFit.fitWidth,
                       width: constraints.maxWidth / 3 - 10,
-                      height: 70))
+                      height: constraints.maxWidth / 3 - 10))
                   .addSubWight(Center(
-                    child: Text("title" + i.toString()),
+                    child: Text(sectionModel.videoCategoryItemModels[i].title == null ? "":sectionModel.videoCategoryItemModels[i].title),
                   ).putIntoContainer(height: 30, width: 70));
             },
           );
@@ -144,26 +166,56 @@ class _CategoryPageHome extends State<CategoryPageHome> {
             width: double.infinity, margin: EdgeInsets.all(10));
       },
       clickLeftItem: (context, itemList, index) {
-        rightList = List();
-        for (var i = 0; i < 10; i++) {
-          rightList.add("分类" + index.toString() + "的分区" + i.toString());
-        }
 
-        categoryView.updateRightList(rightList);
-
+  this.leftSelectIndex = index;
+  listKey = index.toString();
+           List rightViewList = List();
+    for (var i = 0; i < videoCategoryModelList[index].videoCategroySectionModels.length; i++) {
+      rightViewList.add(videoCategoryModelList[index].videoCategroySectionModels[i]);
+    }
+    log(rightViewList.length.toString());
+          categoryView.updateRightList(rightViewList);
         setState(() {
-          // log(rightList.toString());
-          listKey = index.toString();
+          
+        
         });
       },
     );
-
-    // TODO: implement build
-    log(MediaQuery.of(context).size.height.toString());
     return Scaffold(
         // appBar:AppBar(
         //   title:Text("重置密码"),
         // ),
         body: categoryView.putInfoSaveArea());
+    }else{
+      return Container();
+    }
+   
+
+  }
+
+  void loadCategory(BuildContext context) {
+    NetWorkTool netWorkTool = NetWorkTool();
+    netWorkTool.netWorkCallback = (response, error) {
+      String responeString = response.toString();
+      Map map = convert.jsonDecode(responeString);
+      if (map != null) {
+        if (map['resultCode'] == "200") {
+          List resultList = (map["result"]);
+          for (var i = 0; i < resultList.length; i++) {
+            VideoCategoryModel model = VideoCategoryModel.fromJson(resultList[i]);
+            videoCategoryModelList.add(model);
+          }
+          
+          
+          setState(() {
+        //  this.hotSearchList = result;
+          });
+        }
+      } else {
+      
+      }
+    };
+    netWorkTool.post(category_home_url, {
+    });
   }
 }

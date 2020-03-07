@@ -12,9 +12,13 @@ import 'package:sfviewtool/sfviewtool.dart';
 import '../../global.dart';
 
 class CourseDetailPage extends StatefulWidget {
+  final CourseModel courseModel;
+
+  const CourseDetailPage({Key key, this.courseModel}) : super(key: key);
+  
   @override
   State<StatefulWidget> createState() {
-    return _CourseDetailPage();
+    return _CourseDetailPage(this.courseModel);
   }
 }
 
@@ -27,6 +31,13 @@ class _CourseDetailPage extends State<CourseDetailPage>
   List<Widget> _tabPages;
   List<Widget> _tabTitles;
   int selectedIndex = 0;
+
+  final CourseModel courseModel;
+
+  _CourseDetailPage(this.courseModel);
+
+  
+  
   // Widget currentPage = _tabPages[selectedIndex];
 
   @override
@@ -86,12 +97,12 @@ class _CourseDetailPage extends State<CourseDetailPage>
     item2.itemModels.add(subItem6);
 
     _courseModel = CourseModel();
-    _courseModel.courseTitle = "Flutter课程Flutter课程Flutter课程";
+    _courseModel.title = "Flutter课程Flutter课程Flutter课程";
     _courseModel.courseFor = "男女老少皆宜";
-    _courseModel.courseDesc = "这是课程简介";
+    _courseModel.videoInfo = "这是课程简介";
     _courseModel.contentModels = itemModels;
     _courseModel.favouriteCount = 100;
-    _courseModel.imageUrl =
+    _courseModel.videoUrlAdress =
         "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";
     _courseModel.courseDescImageList = List();
     _courseModel.courseDescImageList.add(
@@ -192,7 +203,7 @@ class _CourseDetailPage extends State<CourseDetailPage>
                             actions: actions,
                             flexibleSpace: new FlexibleSpaceBar(
                               background: Image.network(
-                                _courseModel.imageUrl,
+                                courseModel.coverImageUrl,
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -297,9 +308,9 @@ class CourseIntroducePage extends StatelessWidget {
         SliverToBoxAdapter(
           child: Column()
               .addSubWight(Text(
-                _courseModel.courseTitle == null
+                _courseModel.title == null
                     ? ""
-                    : _courseModel.courseTitle,
+                    : _courseModel.title,
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 20),
               ).putIntoContainer(
@@ -343,7 +354,7 @@ class CourseIntroducePage extends StatelessWidget {
 
   Column getIntroduce(CourseModel courseModel) {
     Column descView = Column().addSubWight(Text(
-      courseModel.courseDesc == null ? "" : courseModel.courseDesc,
+      courseModel.videoInfo == null ? "" : courseModel.videoInfo,
       style: TextStyle(fontSize: 18),
     ).putIntoContainer(width: double.infinity));
     if (courseModel.courseDescImageList != null) {

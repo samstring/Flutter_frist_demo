@@ -30,7 +30,7 @@ dependencies:
   video_player: ^0.10.5+2
   chewie: ^0.9.8+1
   flutter_swiper : ^1.1.6
-  # search_widget: ^1.0.1
+  # search_widget: ^1.0.1==-
   shared_preferences: ^0.5.6+1
   sfviewtool: ^0.0.2
   search_pageview: ^0.0.7
@@ -40,7 +40,10 @@ dependencies:
   fl_chart: ^0.8.1
   flutter_calendar: ^0.0.1
   flutter_spinkit: "^4.1.2"
-  
+  photo_view: ^ 0.9.2
+  flutter_easyrefresh: ^2.0.9
+  json_annotation: ^3.0.0
+  shimmer: ^1.1.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   
@@ -49,7 +52,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   
-    
+  build_runner: ^1.0.0
+  json_serializable: ^3.2.0
+  
 
 
 # For information on the generic Dart part of this file, see the
@@ -77,6 +82,11 @@ flutter:
    - assets/images/user_background1.jpg
    - assets/images/user_background2.jpg
    - assets/images/user_background3.jpg
+   - assets/images/dianying.png
+   - assets/images/huabanfuben.png
+   - assets/images/shuben.png
+   - assets/images/yinle.png
+   - assets/images/yundongxie.png
   #  - images/shangcheng.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

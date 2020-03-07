@@ -17,10 +17,10 @@ class _MyCoursePage extends State<MyCoursePage> {
   @override
   Widget build(BuildContext context) {
     CourseModel model = CourseModel();
-    model.courseTitle = "大数据 flutter学习";
-    model.imageUrl =
+    model.title = "大数据 flutter学习";
+    model.videoUrlAdress =
         "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";
-    model.courseDesc = "内容";
+    model.videoInfo = "内容";
     List<CourseModel> models = List();
     models.add(model);
     return Scaffold(
@@ -57,6 +57,7 @@ class _MyCoursePage extends State<MyCoursePage> {
             body: CustomScrollView(
               // key: PageStorageKey("home"),
               slivers: <Widget>[
+                
                 SliverToBoxAdapter(
                   child: Text(
                     "最近观看",
@@ -85,6 +86,8 @@ class _MyCoursePage extends State<MyCoursePage> {
     return CustomScrollView(
       // key: PageStorageKey("home"),
       slivers: <Widget>[
+        SliverOverlapInjector(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context)),
         SliverToBoxAdapter(
           child: Stack()
               .addSubWight(

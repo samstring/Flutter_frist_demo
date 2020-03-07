@@ -124,9 +124,9 @@ class CourseListPage extends StatelessWidget {
         },
         itemBuilder:(BuildContext context, int index) {
           CourseModel model = CourseModel();
-          model.courseTitle = "标题";
-          model.imageUrl = "https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action/docs/imgs/3-17.png";
-          model.courseDesc = "内容";
+          model.title = "标题";
+          model.videoUrlAdress = "https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action/docs/imgs/3-17.png";
+          model.videoInfo = "内容";
           return CourseListItemView(model).putIntoGestureDetector(GestureDetector(
         onTapDown:(event){
           log("点击第$index");
@@ -157,12 +157,12 @@ CourseListItemView(CourseModel itemModel){
     // TODO: implement build
     Row contentView =Row().addSubWight(
       Image.network(
-        _itemModel.imageUrl == null ? "":_itemModel.imageUrl,
+        _itemModel.videoUrlAdress == null ? "":_itemModel.videoUrlAdress,
       ).putIntoContainer(width: 100,height: 60,color: GlobalTool.mainColor,margin: EdgeInsets.only(left: 10,top: 10,right: 10))
     ).addSubWight(
-      Column(crossAxisAlignment: CrossAxisAlignment.start,).addSubWight(Text(_itemModel.courseTitle == null ? "":_itemModel.courseTitle))
+      Column(crossAxisAlignment: CrossAxisAlignment.start,).addSubWight(Text(_itemModel.title == null ? "":_itemModel.title))
       .addSubWight(
-        Text(_itemModel.courseDesc== null ? "":_itemModel.courseDesc,style: TextStyle(fontSize: 12),)
+        Text(_itemModel.videoInfo== null ? "":_itemModel.videoInfo,style: TextStyle(fontSize: 12),)
         // Expanded(child: Text(_itemModel.courseDesc== null ? "":_itemModel.courseDesc,).putIntoContainer(color:mainColor),)
       ).putIntoContainer(height: 60,margin: EdgeInsets.only(top: 10,right: 10),)
     );
