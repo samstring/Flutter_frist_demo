@@ -16,7 +16,7 @@ class MyCoursePage extends StatefulWidget {
 class _MyCoursePage extends State<MyCoursePage> {
   @override
   Widget build(BuildContext context) {
-    CourseModel model = CourseModel();
+    CourseModel model = null;
     model.title = "大数据 flutter学习";
     model.videoUrlAdress =
         "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";

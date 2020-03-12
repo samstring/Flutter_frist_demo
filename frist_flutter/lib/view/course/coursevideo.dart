@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:FlutterDemo/contanst.dart';
 import 'package:FlutterDemo/global.dart';
+import 'package:FlutterDemo/model/course/category_model.dart';
 import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ Chewie playerWidget;
 
  bool initialized = false;
 
- CourseModel _courseModel;
+ VideoCategoryModel _courseModel;
 
 _VideoScreenState(this.url);
 
@@ -61,45 +62,45 @@ _VideoScreenState(this.url);
   // log(url);
 
 
-   List<CourseContentModel> itemModels = List();
+   List itemModels = List();
 
-    CourseContentModel item = CourseContentModel();
-    item.title = "课程标题1";
-    item.itemModels = List();
-    CourseContentItemModel subItem = CourseContentItemModel();
-    subItem.title = "子课程";
-    subItem.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item.itemModels.add(subItem);
-    itemModels.add(item);
+//     CourseContentModel item = CourseContentModel();
+//     item.title = "课程标题1";
+//     item.itemModels = List();
+//     CourseContentItemModel subItem = CourseContentItemModel();
+//     subItem.title = "子课程";
+//     subItem.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
+//     item.itemModels.add(subItem);
+//     itemModels.add(item);
 
- CourseContentModel item2 = CourseContentModel();
-    item2.title = "课程标题2";
-    item2.itemModels = List();
-    CourseContentItemModel subItem2 = CourseContentItemModel();
-    subItem2.title = "子课程";
-    subItem2.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item2.itemModels.add(subItem2);
-    itemModels.add(item2);
+//  VideoCategoryModel item2 = CourseContentModel();
+//     item2.title = "课程标题2";
+//     item2.itemModels = List();
+//     CourseContentItemModel subItem2 = CourseContentItemModel();
+//     subItem2.title = "子课程";
+//     subItem2.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
+//     item2.itemModels.add(subItem2);
+//     itemModels.add(item2);
 
-    CourseContentItemModel subItem3 = CourseContentItemModel();
-    subItem3.title = "子课程";
-    subItem3.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item2.itemModels.add(subItem3);
+//     CourseContentItemModel subItem3 = CourseContentItemModel();
+//     subItem3.title = "子课程";
+//     subItem3.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
+//     item2.itemModels.add(subItem3);
  
 
-   _courseModel = CourseModel();
-    _courseModel.title = "Flutter课程Flutter课程Flutter课程";
-    _courseModel.courseFor = "男女老少皆宜";
-    _courseModel.videoInfo = "这是课程简介";
-    _courseModel.contentModels = itemModels;
-    _courseModel.favouriteCount = 100;
-    _courseModel.videoUrlAdress = "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";
-    _courseModel.courseDescImageList = List();
-    _courseModel.courseDescImageList.add("https://upload-images.jianshu.io/upload_images/6218810-f0c8fb9bc9d5e1c2.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200");
-    _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-    _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-    _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-    _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
+//    _courseModel = CourseModel();
+//     _courseModel.title = "Flutter课程Flutter课程Flutter课程";
+//     _courseModel.courseFor = "男女老少皆宜";
+//     _courseModel.videoInfo = "这是课程简介";
+//     _courseModel.contentModels = itemModels;
+//     _courseModel.favouriteCount = 100;
+//     _courseModel.videoUrlAdress = "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";
+//     _courseModel.courseDescImageList = List();
+//     _courseModel.courseDescImageList.add("https://upload-images.jianshu.io/upload_images/6218810-f0c8fb9bc9d5e1c2.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200");
+//     _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
+//     _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
+//     _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
+//     _courseModel.courseDescImageList.add("https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
 
   
   chewieController = ChewieController(

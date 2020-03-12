@@ -1,44 +1,120 @@
 import 'dart:developer';
 
 import 'package:FlutterDemo/contanst.dart';
+import 'package:FlutterDemo/model/course/course_content_model.dart';
 import 'package:FlutterDemo/model/course/coursemodel.dart';
 import 'package:FlutterDemo/model/usermodel.dart';
+import 'package:FlutterDemo/tool/loading_view.dart';
+import 'package:FlutterDemo/tool/networktool.dart';
 import 'package:FlutterDemo/view/course/categoryhome.dart';
 import 'package:FlutterDemo/view/course/coursevideo.dart';
 import 'package:FlutterDemo/view/course/userinfo.dart';
+import 'package:FlutterDemo/view/my/usertool.dart';
 import 'package:flutter/material.dart';
 import 'package:sfviewtool/sfviewtool.dart';
-
+import 'dart:convert' as convert;
 import '../../global.dart';
 
 class CourseDetailPage extends StatefulWidget {
-  final CourseModel courseModel;
+  // final CourseModel courseModel;
+  final String courseId;
 
-  const CourseDetailPage({Key key, this.courseModel}) : super(key: key);
+  const CourseDetailPage({Key key, this.courseId}) : super(key: key);
+
+  // const CourseDetailPage({Key key, this.courseModel}) : super(key: key);
+  
   
   @override
   State<StatefulWidget> createState() {
-    return _CourseDetailPage(this.courseModel);
+    return _CourseDetailPage(this.courseId);
   }
 }
 
 class _CourseDetailPage extends State<CourseDetailPage>
     with TickerProviderStateMixin {
   List<CourseContentModel> itemModels = List();
-  CourseModel _courseModel;
+  // CourseModel _courseModel;
 
   TabController _tabController;
   List<Widget> _tabPages;
   List<Widget> _tabTitles;
   int selectedIndex = 0;
+  bool isFristLoad = true;
+  bool isLikeVideo = false;
 
-  final CourseModel courseModel;
+   CourseModel courseModel;
+   UserModel teacherModel;
 
-  _CourseDetailPage(this.courseModel);
+  final String courseId;
+
+  _CourseDetailPage(this.courseId);
 
   
-  
-  // Widget currentPage = _tabPages[selectedIndex];
+
+
+  getCourseInfo(String courseId){
+    UserTool.getUserInfo().then((user){
+       NetWorkTool netWorkTool = NetWorkTool();
+    netWorkTool.netWorkCallback = (response, error) {
+      String responeString = response.toString();
+      Map map = convert.jsonDecode(responeString);
+      if (map != null) {
+        if (map['resultCode'] == "200") {
+          CourseModel model = CourseModel.fromJson(map["result"]['video_info']);
+          this.courseModel = model;
+          this.teacherModel = UserModel.fromJson(map["result"]["teacher"]);
+          int likeState = map["result"]["isLike"];
+          if(likeState == 1){
+            isLikeVideo = true;
+          }else{
+            isLikeVideo = false;
+          }
+          setState(() {
+        //  this.hotSearchList = result;
+          });
+        }
+      } else {
+      
+      }
+    };
+    netWorkTool.post(video_detail_info, {
+      "videoId":this.courseId,
+      "user.bbToken.b_tokenString":user.bbToken.bTokenString == null ?"":user.bbToken.bTokenString,
+      "user.b_Id":user.bId == null ? "":user.bId
+    });
+    });
+  }
+
+  likeVideo(bool isLike){
+     UserTool.getUserInfo().then((user){
+       NetWorkTool netWorkTool = NetWorkTool();
+    netWorkTool.netWorkCallback = (response, error) {
+      String responeString = response.toString();
+      Map map = convert.jsonDecode(responeString);
+      if (map != null) {
+        if (map['resultCode'] == "200") {
+          
+          this.isLikeVideo = !isLikeVideo;
+          setState(() {
+          });
+        }
+      } else {
+      
+      }
+    };
+    String url = null;
+    if(isLike){
+      url = like_video_url;
+    }else{
+      url = unLike_video_url;
+    }
+    netWorkTool.post(url, {
+      "videoModel.b_Id":this.courseId,
+      "user.bbToken.b_tokenString":user.bbToken.bTokenString == null ?"":user.bbToken.bTokenString,
+      "user.b_Id":user.bId == null ? "":user.bId
+    });
+    });
+  }
 
   @override
   void initState() {
@@ -58,72 +134,34 @@ class _CourseDetailPage extends State<CourseDetailPage>
 
   @override
   Widget build(BuildContext context) {
+      if (this.isFristLoad == true) {
+      getCourseInfo(this.courseId);
+      this.isFristLoad = false;
+    }
+
+    if (this.courseModel == null) {
+      return Scaffold(
+        body: Center(
+          child: LoadingDialog(),
+        ),
+      );
+    }
+
+  
+
+
     itemModels = List();
 
     CourseContentModel item = CourseContentModel();
-    item.title = "课程标题1";
-    item.itemModels = List();
-    CourseContentItemModel subItem = CourseContentItemModel();
-    subItem.title = "子课程";
-    subItem.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item.itemModels.add(subItem);
-    itemModels.add(item);
-
-    CourseContentModel item2 = CourseContentModel();
-    item2.title = "课程标题2";
-    item2.itemModels = List();
-    CourseContentItemModel subItem2 = CourseContentItemModel();
-    subItem2.title = "子课程";
-    subItem2.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item2.itemModels.add(subItem2);
-    itemModels.add(item2);
-
-    CourseContentItemModel subItem3 = CourseContentItemModel();
-    subItem3.title = "子课程";
-    subItem3.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item2.itemModels.add(subItem3);
-
-    CourseContentItemModel subItem4 = CourseContentItemModel();
-    subItem4.title = "子课程";
-    subItem4.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item2.itemModels.add(subItem4);
-    CourseContentItemModel subItem5 = CourseContentItemModel();
-    subItem5.title = "子课程";
-    subItem5.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item2.itemModels.add(subItem5);
-    CourseContentItemModel subItem6 = CourseContentItemModel();
-    subItem6.title = "子课程";
-    subItem6.videoUrl = "https://www.w3cschool.cn/statics/demosource/movie.mp4";
-    item2.itemModels.add(subItem6);
-
-    _courseModel = CourseModel();
-    _courseModel.title = "Flutter课程Flutter课程Flutter课程";
-    _courseModel.courseFor = "男女老少皆宜";
-    _courseModel.videoInfo = "这是课程简介";
-    _courseModel.contentModels = itemModels;
-    _courseModel.favouriteCount = 100;
-    _courseModel.videoUrlAdress =
-        "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70";
-    _courseModel.courseDescImageList = List();
-    _courseModel.courseDescImageList.add(
-        "https://upload-images.jianshu.io/upload_images/6218810-f0c8fb9bc9d5e1c2.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200");
-    _courseModel.courseDescImageList.add(
-        "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-    _courseModel.courseDescImageList.add(
-        "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-    _courseModel.courseDescImageList.add(
-        "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-    _courseModel.courseDescImageList.add(
-        "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-
-    UserModel teacherModel = UserModel(
-        userName: "张三",
-        userDesc: "这个人很赖",
-        avatarImageUrl:
-            "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
-    _courseModel.teacherMode = teacherModel;
+   
+    // UserModel teacherModel = UserModel(
+    //     userName: "张三",
+    //     userDesc: "这个人很赖",
+    //     avatarImageUrl:
+    //         "https://img-blog.csdnimg.cn/20190902174921871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01yc19jaGVucw==,size_16,color_FFFFFF,t_70");
+    
     _tabPages = [
-      CourseIntroducePage(_courseModel),
+      CourseIntroducePage(this.courseModel,this.teacherModel),
       CourseConetentPage(itemModels, true)
     ];
 
@@ -149,9 +187,11 @@ class _CourseDetailPage extends State<CourseDetailPage>
       IconButton(
         icon: Icon(
           Icons.favorite,
-          color: Colors.grey,
+          color: this.isLikeVideo ? Colors.red:Colors.grey
         ),
-        onPressed: () {},
+        onPressed: () {
+          this.likeVideo(!this.isLikeVideo);
+        },
       ),
       IconButton(
         icon: Icon(
@@ -293,9 +333,11 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 //
 class CourseIntroducePage extends StatelessWidget {
   CourseModel _courseModel;
+  UserModel teacherMdoel;
 
-  CourseIntroducePage(CourseModel courseModel) {
+  CourseIntroducePage(CourseModel courseModel,UserModel teacher) {
     _courseModel = courseModel;
+    teacherMdoel = teacher;
   }
 
   @override
@@ -318,9 +360,9 @@ class CourseIntroducePage extends StatelessWidget {
                   height: 30,
                   margin: EdgeInsets.only(top: 10)))
               .addSubWight(Text(
-                _courseModel.favouriteCount == null
+                _courseModel.likeCount == null
                     ? ""
-                    : _courseModel.favouriteCount.toString() + " 人收藏",
+                    : _courseModel.likeCount.toString() + " 人收藏",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 13),
               ).putIntoContainer(
@@ -331,11 +373,11 @@ class CourseIntroducePage extends StatelessWidget {
                   .putIntoContainer(margin: EdgeInsets.only(bottom: 20)))
               .addSubWight(getSection(
                   "适合人群",
-                  Text(_courseModel.courseFor == null
+                  Text(_courseModel.title == null
                       ? ""
-                      : _courseModel.courseFor)))
+                      : _courseModel.title)))
               .addSubWight(
-                  getSection("老师", UserInfoItem(_courseModel.teacherMode)))
+                  getSection("老师", UserInfoItem(teacherMdoel)))
               .putIntoContainer(padding: EdgeInsets.only(left: 10, right: 10)),
         )
       ],
@@ -357,10 +399,10 @@ class CourseIntroducePage extends StatelessWidget {
       courseModel.videoInfo == null ? "" : courseModel.videoInfo,
       style: TextStyle(fontSize: 18),
     ).putIntoContainer(width: double.infinity));
-    if (courseModel.courseDescImageList != null) {
-      for (var i = 0; i < courseModel.courseDescImageList.length; i++) {
+    if (courseModel.videoImages != null) {
+      for (var i = 0; i < courseModel.videoImages.length; i++) {
         descView = descView.addSubWight(
-            Image.network(courseModel.courseDescImageList[i])
+            Image.network(courseModel.videoImages[i].imageUrl)
                 .putIntoContainer(width: double.infinity));
       }
     }

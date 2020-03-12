@@ -79,16 +79,16 @@ class _PersonalInfoSetting extends State<PersonalInfoSetting> {
             })),
             PersonalInfoSettingItem(
               title: "用户名",
-              subTitle: (userModel == null || userModel.userName == null)
+              subTitle: (userModel == null || userModel.name == null)
                   ? ""
-                  : userModel.userName,
+                  : userModel.name,
               isShowRightArrow: true,
             ).putIntoGestureDetector(GestureDetector(
               onTapDown: (event) {
                 showDialog(
                     context: context,
                     builder: (contenxt) {
-                      return ChangeUserInfoDialog("用户名", userModel.userName,
+                      return ChangeUserInfoDialog("用户名", userModel.name,
                           (content) {
                         NetWorkTool netWorkTool = NetWorkTool();
                         netWorkTool.netWorkCallback = (response, error) {
@@ -118,9 +118,9 @@ class _PersonalInfoSetting extends State<PersonalInfoSetting> {
                         };
 
                         netWorkTool.post(updateUserInfo_url, {
-                          "user.b_Id": userModel.b_Id,
+                          "user.b_Id": userModel.bId,
                           "user.bbToken.b_tokenString":
-                              userModel.bbToken.b_tokenString,
+                              userModel.bbToken.bTokenString,
                           "propertyKey": "name",
                           "propertyValue": content,
                         });
@@ -169,9 +169,9 @@ class _PersonalInfoSetting extends State<PersonalInfoSetting> {
                         };
 
                         netWorkTool.post(updateUserInfo_url, {
-                          "user.b_Id": userModel.b_Id,
+                          "user.b_Id": userModel.bId,
                           "user.bbToken.b_tokenString":
-                              userModel.bbToken.b_tokenString,
+                              userModel.bbToken.bTokenString,
                           "propertyKey": "userDesc",
                           "propertyValue": content,
                         });

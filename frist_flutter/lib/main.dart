@@ -62,7 +62,7 @@ class _MyApp extends State<MyApp> {
             primarySwatch: infoProvider.getAppPrimarySwatch(),
           ),
           home: (isExitLoginInfo == true ||
-                  (userModel != null && userModel.b_Id != null))
+                  (userModel != null && userModel.bId != null))
               ? MainTabPage()
               : CourseloginPage());
     }
@@ -134,11 +134,12 @@ class RouteManger {
 //      }else{
 //        page = CourseloginPage();
 //      }
-// Map map = settings.arguments;
+Map map = settings.arguments;
+String courseId = map['courseId'];
     // String model_coverImageUrl = aragments["model_coverImageUrl"];//map[''];
-    CourseModel model = CourseModel();
-    model.coverImageUrl = "http://n.sinaimg.cn/photo/transform/525/w300h225/20200119/c159-inhcycc3051073.jpg";
-      page = CourseDetailPage(courseModel: model);
+    // CourseModel model = null;
+    // model.coverImageUrl = "http://n.sinaimg.cn/photo/transform/525/w300h225/20200119/c159-inhcycc3051073.jpg";
+      page = CourseDetailPage(courseId: courseId,);
     }
 
     if (settings.name == "personalPage") {

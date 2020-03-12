@@ -46,7 +46,7 @@ class _SettingPage extends State<SettingPage> {
       if (userModel != null  && userModel.avatarImage != null) {
        setState(() {
          avatarImageUrl = userModel.avatarImage;
-         userName = userModel.userName;
+         userName = userModel.name;
        });
       }
     });

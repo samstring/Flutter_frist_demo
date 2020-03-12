@@ -132,8 +132,8 @@ UserTool.getUserInfo().then((userModel) {
   
  
   FormData formData =  FormData.fromMap({
-   "user.b_Id":userModel.b_Id,
-     "user.bbToken.b_tokenString":userModel.bbToken.b_tokenString,
+   "user.b_Id":userModel.bId,
+     "user.bbToken.b_tokenString":userModel.bbToken.bTokenString,
    "file": uploadFile // MultipartFile.fromFile(compressedFile.path),
 
 });

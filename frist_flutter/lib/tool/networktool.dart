@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 const String serverAdress = "http://47.105.188.234:8080/FlutterDemo_war";
@@ -25,7 +27,7 @@ class NetWorkTool  {
         this.netWorkCallback(response,null);  
     } catch (e) {
       Exception error = Exception(e.toString());
-      
+      log(e.toString());
 this.netWorkCallback(null,error);
     }
 

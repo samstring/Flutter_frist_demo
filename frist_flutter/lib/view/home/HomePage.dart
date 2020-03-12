@@ -249,10 +249,10 @@ class _CourseList extends State<CourseList> with AutomaticKeepAliveClientMixin{
           for (int i = 0; i < resultList.length; i++) {
             CourseModel model = CourseModel.fromJson(resultList[i]);
 
-            if (this.modelsSet.contains(model.b_Id)) {
+            if (this.modelsSet.contains(model.bId)) {
             } else {
               models.add(model);
-              modelsSet.add(model.b_Id);
+              modelsSet.add(model.bId);
             }
           }
           setState(() {
@@ -406,7 +406,7 @@ netWorkTool.post(hotVideo_url, {
             )
         .putIntoGestureDetector(GestureDetector(
       onTapDown: (event) {
-        Navigator.pushNamed(context, "coursePage");
+        Navigator.pushNamed(context, "coursePage",arguments: {"courseId":model.bId});
         // Navigator.pushNamed(context, "ChatPage");
       },
     ));

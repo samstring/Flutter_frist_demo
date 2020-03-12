@@ -144,7 +144,7 @@ class _PersonalInfo extends State<PersonalInfo> {
 
     UserTool.getUserInfo().then(( userInfo){
       setState(() {
-        userName = userInfo.userName;
+        userName = userInfo.name;
         userDesc = userInfo.userDesc;
         avatarImageUrl = userInfo.avatarImage;
       });
@@ -180,7 +180,7 @@ class _PersonalInfo extends State<PersonalInfo> {
       if (userModel != null  && userModel.avatarImage != null) {
        setState(() {
           avatarImageUrl = userModel.avatarImage;
-          userName = userModel.userName;
+          userName = userModel.name;
           userDesc = userModel.userDesc;
        });
       }
